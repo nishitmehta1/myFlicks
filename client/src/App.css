@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.search-bar {
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.app .movies-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}

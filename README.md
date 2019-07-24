@@ -1,3 +1,4 @@
 # myFlicks
 
-Application to keep track of the movies you have watched.
+Application for keeping track of the movies you have watched.
+
