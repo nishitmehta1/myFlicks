@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Search from "./Search";
 import Movie from "./Movie";
+import axios from "axios";
 
 const API_KEY = "0c95577b9c6f99149dcce7a8abb721b4";
 
@@ -9,7 +10,11 @@ class Main extends Component {
     super(props);
     this.state = {
       search: "",
-      info: []
+      query: "",
+      info: [],
+      login: false,
+      firstname: "",
+      lastname: ""
     };
   }
 
@@ -22,6 +27,24 @@ class Main extends Component {
           search: ""
         })
       );
+    axios
+      .get("http://localhost:4000/users/", { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.data === "LOGGEDIN") {
+          this.setState({
+            login: true,
+            firstname: res.data.name.first,
+            lastname: res.data.name.last
+          });
+        } else if (res.data.data === "LOGIN") {
+          this.setState({
+            login: false,
+            firstname: "",
+            lastname: ""
+          });
+        }
+      });
   };
 
   handleChange = (e) => {
@@ -57,6 +80,24 @@ class Main extends Component {
       .then((data) => this.setState({ info: data.results, search: "" }));
   };
 
+  onLogoutClick = () => {
+    axios
+      .get("http://localhost:4000/users/logout", { withCredentials: true })
+      .then((res) => {
+        if (res.data.data === "LOGIN") {
+          this.setState({
+            login: false,
+            firstname: "",
+            lastname: ""
+          });
+        }
+      });
+  };
+
+  onLoginClick = () => {
+    this.props.history.push("/login");
+  };
+
   render() {
     const url = "https://image.tmdb.org/t/p/w300";
     const movies = this.state.info.map((movie) => (
@@ -77,7 +118,28 @@ class Main extends Component {
             search={this.state.search}
           />
         </div>
-
+        {this.state.login ? (
+          <div>
+            <button
+              style={{ width: "10rem" }}
+              className="btn btn-primary btn-lg logout"
+              onClick={this.onLogoutClick}
+            >
+              Logout
+            </button>
+            <h4>Hello, {this.state.firstname}</h4>
+          </div>
+        ) : (
+          <div>
+            <button
+              style={{ width: "10rem" }}
+              className="btn btn-primary btn-lg login"
+              onClick={this.onLoginClick}
+            >
+              Login
+            </button>
+          </div>
+        )}
         <div className="movies-list">{movies}</div>
       </div>
     );

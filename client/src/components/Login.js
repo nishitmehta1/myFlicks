@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import MainGame from './MainGame';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -64,10 +63,10 @@ class LogIn extends Component {
           });
         } else if (res.data.data === 'INVALID') {
           this.setState({
-            incorrectPass: !this.state.incorrectPass
+            incorrectPass: true
           });
         } else if (res.data.data === 'PASS') {
-          this.setState({ user: res.data.user });
+          this.setState({ user: res.data.user, incorrectPass: false });
           this.props.history.push('/');
         }
       });

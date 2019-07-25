@@ -1,6 +1,6 @@
 require('dotenv').config();
-const express = require('express');
 const session = require('express-session');
+const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -10,8 +10,8 @@ const port = process.env.PORT || 4000;
 const userRoutes = express.Router();
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 const SESS_LIFETIME = TWO_HOURS;
-const SESS_NAME = 'sid';
-const SESS_SECRET = 'cookiesecret';
+const SESS_NAME = 'sidd';
+const SESS_SECRET = 'cookiesecret123';
 const MongoStore = require('connect-mongo')(session);
 const NODE_ENV = 'development';
 const IN_PROD = NODE_ENV === 'production';
@@ -38,8 +38,22 @@ connection.once('open', () => {
 
 // ROUTES
 
+userRoutes.route('/').get((req, res) => {
+  const userId = req.session.userId;
+  if (!userId) {
+    res.json({ data: 'LOGIN' });
+  } else {
+    console.log(userId);
+    res.json({
+      data: 'LOGGEDIN',
+      userId: userId,
+      name: req.session.name,
+      profilepic: req.session.profilepic
+    });
+  }
+});
+
 userRoutes.route('/login').post((req, res) => {
-  console.log('Request');
   User.findOne({ email: req.body.email }, (err, user) => {
     // In case the user not found
     if (err) {
@@ -50,15 +64,11 @@ userRoutes.route('/login').post((req, res) => {
       res.json({ data: 'NOTFOUND' });
     } else if (user && user.password === req.body.password) {
       console.log('PASS');
-      // req.session.userId = user._id;
-      // req.session.name = user.name;
-      // req.session.profilepic = user.profilepic;
-      // req.session.save(() => {
-      //   res.json({ data: 'PASS', user: user, sessionID: req.session.id });
-      // });
-      res.json({
-        data: 'PASS',
-        user: user
+      req.session.userId = user._id;
+      req.session.name = user.name;
+      req.session.profilepic = user.profilepic;
+      req.session.save(() => {
+        res.json({ data: 'PASS', user: user, sessionID: req.session.id });
       });
     } else {
       console.log('Credentials wrong');
@@ -81,7 +91,31 @@ userRoutes.route('/createuser').post((req, res) => {
     });
 });
 
-app.use('/users', userRoutes);
+userRoutes.route('/addToWatchList').post((req, res) => {
+  // TODO: Check for repeated entries
+  let movie = req.body;
+  console.log('OUTPUT: : movie', movie);
+  let userId = req.session.userId;
+  console.log('OUTPUT: : userId', userId);
+
+  User.findById(userId, (err, user) => {
+    user.watchlist.push(movie.watchlist);
+    user.save();
+    res.status(200).json({ data: 'Movie Added' });
+  });
+});
+
+userRoutes.route('/logout').get((req, res) => {
+  console.log('Here');
+  req.session.destroy(err => {
+    if (err) {
+      console.log(err);
+      return res.json({ data: 'ERR' });
+    }
+    res.clearCookie(SESS_NAME);
+    res.json({ data: 'LOGIN' });
+  });
+});
 
 app.use(
   session({
@@ -97,6 +131,7 @@ app.use(
     }
   })
 );
+app.use('/users', userRoutes);
 
 app.listen(port, () => {
   console.log(`Started @ ${port}`);
