@@ -103,6 +103,7 @@ class Main extends Component {
     const movies = this.state.info.map((movie) => (
       <Movie
         key={movie.id}
+        id={movie.id}
         src={url + movie.backdrop_path}
         title={movie.title}
         release_date={movie.release_date}
@@ -110,7 +111,7 @@ class Main extends Component {
     ));
     return (
       <div className="app">
-        <h1>MyFlicks</h1>
+        <h1 className="header">MyFlicks</h1>
         <div className="search-bar">
           <Search
             change={this.handleChange}

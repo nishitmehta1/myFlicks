@@ -11,6 +11,14 @@
   align-items: center;
 }
 
+.app .header {
+  background-color: #a34f4f;
+  color: white;
+  text-align: center;
+  margin-bottom: 3vh;
+  height: 5vh;
+}
+
 .app .movies-list {
   display: flex;
   justify-content: space-around;
