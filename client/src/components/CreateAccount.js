@@ -145,7 +145,7 @@ class CreateAccount extends Component {
                   onChange={this.onChangePhone}
                   id='phone'
                   aria-describedby='emailHelp'
-                  placeholder='Enter name'
+                  placeholder='Enter your phone number'
                   required
                 />
               </div>
