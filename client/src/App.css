@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 .search-bar {
@@ -22,4 +23,23 @@
 
 .redBorder {
   border: red 2px solid !important;
+}
+
+.image-container i {
+  position: absolute;
+  top: 10%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: none;
+  cursor: pointer;
+}
+
+.movies-list {
+  width: 70vw;
+  margin: auto;
+}
+
+.app .card {
+  margin-bottom: 5vh;
 }
