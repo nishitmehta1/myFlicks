@@ -39,6 +39,7 @@ connection.once('open', () => {
 // ROUTES
 
 userRoutes.route('/login').post((req, res) => {
+  console.log('Request');
   User.findOne({ email: req.body.email }, (err, user) => {
     // In case the user not found
     if (err) {

@@ -15,3 +15,11 @@
   justify-content: space-around;
   flex-wrap: wrap;
 }
+
+.red {
+  color: red;
+}
+
+.redBorder {
+  border: red 2px solid !important;
+}
