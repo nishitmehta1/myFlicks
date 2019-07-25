@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search';
 import Movie from './Movie';
+import axios from 'axios';
 
 const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
 
@@ -10,7 +11,8 @@ class Main extends Component {
     this.state = {
       search: '',
       query: '',
-      info: []
+      info: [],
+      login: false
     };
   }
 
@@ -22,6 +24,20 @@ class Main extends Component {
           info: data.results
         })
       );
+    axios
+      .get('http://localhost:4000/users/', { withCredentials: true })
+      .then(res => {
+        console.log(res.data.data);
+        if (res.data.data === 'LOGGEDIN') {
+          this.setState({
+            login: true
+          });
+        } else if (res.data.data === 'LOGIN') {
+          this.setState({
+            login: false
+          });
+        }
+      });
   };
 
   handleChange = e => {
@@ -46,6 +62,23 @@ class Main extends Component {
         this.setState({ info: data.results, search: '', query: query })
       );
   };
+
+  onLogoutClick = () => {
+    axios
+      .get('http://localhost:4000/users/logout', { withCredentials: true })
+      .then(res => {
+        if (res.data.data === 'LOGIN') {
+          this.setState({
+            login: false
+          });
+        }
+      });
+  };
+
+  onLoginClick = () => {
+    this.props.history.push('/login');
+  };
+
   render() {
     const url = 'https://image.tmdb.org/t/p/w300';
     const movies = this.state.info.map(movie => (
@@ -66,7 +99,23 @@ class Main extends Component {
             search={this.state.search}
           />
         </div>
-
+        {this.state.login ? (
+          <button
+            style={{ width: '10rem' }}
+            className='btn btn-primary btn-lg logout'
+            onClick={this.onLogoutClick}
+          >
+            Logout
+          </button>
+        ) : (
+          <button
+            style={{ width: '10rem' }}
+            className='btn btn-primary btn-lg login'
+            onClick={this.onLoginClick}
+          >
+            Login
+          </button>
+        )}
         <div className='movies-list'>{movies}</div>
       </div>
     );
