@@ -91,6 +91,20 @@ userRoutes.route('/createuser').post((req, res) => {
     });
 });
 
+userRoutes.route('/addToWatchList').post((req, res) => {
+  // TODO: Check for repeated entries
+  let movie = req.body;
+  console.log('OUTPUT: : movie', movie);
+  let userId = req.session.userId;
+  console.log('OUTPUT: : userId', userId);
+
+  User.findById(userId, (err, user) => {
+    user.watchlist.push(movie.watchlist);
+    user.save();
+    res.status(200).json({ data: 'Movie Added' });
+  });
+});
+
 userRoutes.route('/logout').get((req, res) => {
   console.log('Here');
   req.session.destroy(err => {

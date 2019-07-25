@@ -12,7 +12,9 @@ class Main extends Component {
       search: '',
       query: '',
       info: [],
-      login: false
+      login: false,
+      firstname: '',
+      lastname: ''
     };
   }
 
@@ -27,14 +29,18 @@ class Main extends Component {
     axios
       .get('http://localhost:4000/users/', { withCredentials: true })
       .then(res => {
-        console.log(res.data.data);
+        console.log(res.data);
         if (res.data.data === 'LOGGEDIN') {
           this.setState({
-            login: true
+            login: true,
+            firstname: res.data.name.first,
+            lastname: res.data.name.last
           });
         } else if (res.data.data === 'LOGIN') {
           this.setState({
-            login: false
+            login: false,
+            firstname: '',
+            lastname: ''
           });
         }
       });
@@ -69,7 +75,9 @@ class Main extends Component {
       .then(res => {
         if (res.data.data === 'LOGIN') {
           this.setState({
-            login: false
+            login: false,
+            firstname: '',
+            lastname: ''
           });
         }
       });
@@ -100,21 +108,26 @@ class Main extends Component {
           />
         </div>
         {this.state.login ? (
-          <button
-            style={{ width: '10rem' }}
-            className='btn btn-primary btn-lg logout'
-            onClick={this.onLogoutClick}
-          >
-            Logout
-          </button>
+          <div>
+            <button
+              style={{ width: '10rem' }}
+              className='btn btn-primary btn-lg logout'
+              onClick={this.onLogoutClick}
+            >
+              Logout
+            </button>
+            <h4>Hello, {this.state.firstname}</h4>
+          </div>
         ) : (
-          <button
-            style={{ width: '10rem' }}
-            className='btn btn-primary btn-lg login'
-            onClick={this.onLoginClick}
-          >
-            Login
-          </button>
+          <div>
+            <button
+              style={{ width: '10rem' }}
+              className='btn btn-primary btn-lg login'
+              onClick={this.onLoginClick}
+            >
+              Login
+            </button>
+          </div>
         )}
         <div className='movies-list'>{movies}</div>
       </div>
