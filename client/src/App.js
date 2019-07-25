@@ -30,7 +30,14 @@ class App extends Component {
   }
 
   handleChange(e) {
-    this.setState({ search: e.target.value });
+    const search = e.target.value;
+    fetch(
+      `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${search}`
+    )
+      .then((response) => response.json())
+      .then((data) =>
+        this.setState({ info: data.results, search: search, query: "" })
+      );
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -66,7 +73,7 @@ class App extends Component {
           />
         </div>
 
-        <div class="movies-list">{movies}</div>
+        <div className="movies-list">{movies}</div>
       </div>
     );
   }
