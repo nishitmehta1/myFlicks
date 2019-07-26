@@ -11,7 +11,8 @@ class LogIn extends Component {
       password: '',
       notfound: false,
       incorrectPass: false,
-      sessionID: ''
+      sessionID: '',
+      user: {}
     };
   }
 
@@ -66,7 +67,10 @@ class LogIn extends Component {
             incorrectPass: true
           });
         } else if (res.data.data === 'PASS') {
-          this.setState({ user: res.data.user, incorrectPass: false });
+          this.setState({ user: res.data.user, incorrectPass: false }, () => {
+            this.props.setUser(this.state.user);
+            console.log(this.state.user);
+          });
           this.props.history.push('/');
         }
       });
@@ -78,13 +82,6 @@ class LogIn extends Component {
         <div className='title'>
           <span className='titleSpan'>Header</span>
           <br />
-          {/* <h5>
-            By, Nishit Mehta{' '}
-            <a className='gitlogo' href='https://github.com/nishitmehta1'>
-              {' '}
-              <img src='github-logo.png' alt='' />{' '}
-            </a>
-          </h5> */}
         </div>
         <div className='container'>
           <div className='login'>
