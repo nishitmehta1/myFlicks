@@ -1,51 +1,51 @@
-require("dotenv").config();
-const session = require("express-session");
-const express = require("express");
+require('dotenv').config();
+const session = require('express-session');
+const express = require('express');
 const app = express();
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const path = require("path");
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const path = require('path');
 const port = process.env.PORT || 4000;
 const userRoutes = express.Router();
 const TWO_HOURS = 1000 * 60 * 60 * 2;
 const SESS_LIFETIME = TWO_HOURS;
-const SESS_NAME = "sidd";
-const SESS_SECRET = "cookiesecret123";
-const MongoStore = require("connect-mongo")(session);
-const NODE_ENV = "development";
-const IN_PROD = NODE_ENV === "production";
+const SESS_NAME = 'sidd';
+const SESS_SECRET = 'cookiesecret123';
+const MongoStore = require('connect-mongo')(session);
+const NODE_ENV = 'development';
+const IN_PROD = NODE_ENV === 'production';
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: 'http://localhost:3000',
     credentials: true
   })
 );
 app.use(bodyParser.json());
 
-let User = require("./userModel");
+let User = require('./userModel');
 
 mongoose.connect(
-  process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/users",
+  process.env.MONGOLAB_URI || 'mongodb://127.0.0.1:27017/users',
   { useNewUrlParser: true }
 );
 
 const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("Mongo DB Connection Est. Yay!!");
+connection.once('open', () => {
+  console.log('Mongo DB Connection Est. Yay!!');
 });
 
 // ROUTES
 
-userRoutes.route("/").get((req, res) => {
+userRoutes.route('/').get((req, res) => {
   const userId = req.session.userId;
   if (!userId) {
-    res.json({ data: "LOGIN" });
+    res.json({ data: 'LOGIN' });
   } else {
     console.log(userId);
     res.json({
-      data: "LOGGEDIN",
+      data: 'LOGGEDIN',
       userId: userId,
       name: req.session.name,
       profilepic: req.session.profilepic
@@ -53,67 +53,67 @@ userRoutes.route("/").get((req, res) => {
   }
 });
 
-userRoutes.route("/login").post((req, res) => {
+userRoutes.route('/login').post((req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
     // In case the user not found
     if (err) {
       res.json(err);
     }
     if (!user) {
-      console.log("Not Found");
-      res.json({ data: "NOTFOUND" });
+      console.log('Not Found');
+      res.json({ data: 'NOTFOUND' });
     } else if (user && user.password === req.body.password) {
-      console.log("PASS");
+      console.log('PASS');
       req.session.userId = user._id;
       req.session.name = user.name;
       req.session.profilepic = user.profilepic;
       req.session.save(() => {
-        res.json({ data: "PASS", user: user, sessionID: req.session.id });
+        res.json({ data: 'PASS', user: user, sessionID: req.session.id });
       });
     } else {
-      console.log("Credentials wrong");
-      res.json({ data: "INVALID" });
+      console.log('Credentials wrong');
+      res.json({ data: 'INVALID' });
     }
   });
 });
 
-userRoutes.route("/createuser").post((req, res) => {
+userRoutes.route('/createuser').post((req, res) => {
   //TODO: ADD MULTIPLE USER ACCOUNT CHECK
-  console.log("User Created");
+  console.log('User Created');
   let user = new User(req.body);
   user
     .save()
-    .then((user) => {
-      res.status(200).json({ user: "user Added" });
+    .then(user => {
+      res.status(200).json({ user: 'user Added' });
     })
-    .catch((err) => {
-      res.status(400).send("Adding Failed", err);
+    .catch(err => {
+      res.status(400).send('Adding Failed', err);
     });
 });
 
-userRoutes.route("/addToWatchList").post((req, res) => {
+userRoutes.route('/addToWatchList').post((req, res) => {
   // TODO: Check for repeated entries
   let movie = req.body;
-  console.log("OUTPUT: : movie", movie);
+  console.log('OUTPUT: : movie', movie);
   let userId = req.session.userId;
-  console.log("OUTPUT: : userId", userId);
+  console.log('OUTPUT: : userId', userId);
 
   User.findById(userId, (err, user) => {
-    user.watchlist.push(movie);
+    user.watchlist.push(movie.watchlist);
     user.save();
-    res.status(200).json({ data: "Movie Added" });
+    res.status(200).json({ data: 'Movie Added' });
   });
 });
 
-userRoutes.route("/logout").get((req, res) => {
-  console.log("Here");
-  req.session.destroy((err) => {
+userRoutes.route('/logout').get((req, res) => {
+  console.log('Here');
+  req.session.destroy(err => {
     if (err) {
       console.log(err);
-      return res.json({ data: "ERR" });
+      return res.json({ data: 'ERR' });
     }
     res.clearCookie(SESS_NAME);
-    res.json({ data: "LOGIN" });
+    res.json({ data: 'LOGIN' });
   });
 });
 
@@ -131,7 +131,7 @@ app.use(
     }
   })
 );
-app.use("/users", userRoutes);
+app.use('/users', userRoutes);
 
 app.listen(port, () => {
   console.log(`Started @ ${port}`);

@@ -1,32 +1,39 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from 'react';
+import axios from 'axios';
 
-const Movie = (props) => {
-  const { id, src, title, release_date } = props;
-
-  const addWatchList = (id) => {
+class Movie extends Component {
+  addWatchList = id => {
+    let movie = {
+      watchlist: id.toString()
+    };
     axios
-      .post("http://localhost:4000/users/addToWatchList", id)
-      .then((res) => console.log(res.data));
+      .post('http://localhost:4000/users/addToWatchList', movie, {
+        withCredentials: true
+      })
+      .then(res => console.log(res.data));
   };
-  return (
-    <div className="card" style={{ width: "18rem" }}>
-      <div className="image-container">
-        <img className="card-img-top" src={src} alt={title} />
-        <button onClick={addWatchList(id)}>
-          <i className="fas fa-plus" />
-        </button>
-      </div>
 
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">
-          <span>Release Date: </span>
-          {release_date}
-        </p>
+  render() {
+    const { id, src, title, release_date } = this.props;
+    return (
+      <div className='card' style={{ width: '18rem' }}>
+        <div className='image-container'>
+          <img className='card-img-top' src={src} alt={title} />
+          <button onClick={() => this.addWatchList(id)}>
+            <i className='fas fa-plus' />
+          </button>
+        </div>
+
+        <div className='card-body'>
+          <h5 className='card-title'>{title}</h5>
+          <p className='card-text'>
+            <span>Release Date: </span>
+            {release_date}
+          </p>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Movie;
