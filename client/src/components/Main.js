@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Search from './Search';
 import Movie from './Movie';
 import axios from 'axios';
@@ -14,7 +15,8 @@ class Main extends Component {
       info: [],
       login: false,
       firstname: '',
-      lastname: ''
+      lastname: '',
+      user: {}
     };
   }
 
@@ -34,14 +36,14 @@ class Main extends Component {
         if (res.data.data === 'LOGGEDIN') {
           this.setState({
             login: true,
-            firstname: res.data.name.first,
-            lastname: res.data.name.last
+            user: res.data.user,
+            firstname: res.data.user.name.first,
+            lastname: res.data.user.name.last
           });
+          console.log(this.state.user);
         } else if (res.data.data === 'LOGIN') {
           this.setState({
-            login: false,
-            firstname: '',
-            lastname: ''
+            login: false
           });
         }
       });
@@ -148,4 +150,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default withRouter(Main);

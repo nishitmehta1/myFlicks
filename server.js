@@ -46,9 +46,8 @@ userRoutes.route('/').get((req, res) => {
     console.log(userId);
     res.json({
       data: 'LOGGEDIN',
-      userId: userId,
-      name: req.session.name,
-      profilepic: req.session.profilepic
+      user: req.session.user,
+      userId: userId
     });
   }
 });
@@ -65,8 +64,7 @@ userRoutes.route('/login').post((req, res) => {
     } else if (user && user.password === req.body.password) {
       console.log('PASS');
       req.session.userId = user._id;
-      req.session.name = user.name;
-      req.session.profilepic = user.profilepic;
+      req.session.user = user;
       req.session.save(() => {
         res.json({ data: 'PASS', user: user, sessionID: req.session.id });
       });
@@ -92,7 +90,7 @@ userRoutes.route('/createuser').post((req, res) => {
 });
 
 userRoutes.route('/addToWatchList').post((req, res) => {
-  // TODO: Check for repeated entries
+  // TODO: Delete Link
   let userId = req.session.userId;
   console.log('OUTPUT: : userId', userId);
   if (userId) {
@@ -100,28 +98,22 @@ userRoutes.route('/addToWatchList').post((req, res) => {
     console.log('OUTPUT: : movie', movie);
 
     User.findById(userId, (err, user) => {
-      user.watchlist.push(movie.watchlist);
-      user.save();
-      res.status(200).json({ data: 'Movie Added' });
+      if (user.watchlist.indexOf(movie.watchlist) < 0) {
+        user.watchlist.push(movie.watchlist);
+        user.save();
+        res.status(200).json({ data: 'Movie Added' });
+      } else {
+        res.json({
+          data: 'Movie Already Present'
+        });
+      }
     });
   } else {
     res.json({ data: 'LOGIN FIRST' });
   }
 });
 
-userRoutes.route('/getWatchList').get((req, res) => {
-  // TODO: Check for repeated entries
-  let userId = req.session.userId;
-  console.log('OUTPUT: : userId', userId);
-
-  User.findById(userId, (err, user) => {
-    console.log(user.watchlist);
-    res.status(200).json({ data: user.watchlist });
-  });
-});
-
 userRoutes.route('/logout').get((req, res) => {
-  console.log('Here');
   req.session.destroy(err => {
     if (err) {
       console.log(err);
