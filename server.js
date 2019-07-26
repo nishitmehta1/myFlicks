@@ -54,7 +54,6 @@ userRoutes.route('/').get((req, res) => {
 
 userRoutes.route('/login').post((req, res) => {
   User.findOne({ email: req.body.email }, (err, user) => {
-    // In case the user not found
     if (err) {
       res.json(err);
     }
@@ -76,21 +75,42 @@ userRoutes.route('/login').post((req, res) => {
 });
 
 userRoutes.route('/createuser').post((req, res) => {
-  //TODO: ADD MULTIPLE USER ACCOUNT CHECK
-  console.log('User Created');
-  let user = new User(req.body);
-  user
-    .save()
-    .then(user => {
-      res.status(200).json({ user: 'user Added' });
-    })
-    .catch(err => {
-      res.status(400).send('Adding Failed', err);
-    });
+  User.findOne({ email: req.body.email }, (err, user) => {
+    if (user) {
+      res.status(200).json({ data: 'User Already Present' });
+    } else {
+      let user = new User(req.body);
+      user
+        .save()
+        .then(user => {
+          res.status(200).json({ data: 'user Added' });
+        })
+        .catch(err => {
+          res.status(400).send('Adding Failed', err);
+        });
+      console.log('User Created');
+    }
+  });
+});
+
+userRoutes.route('/deleteWatchList').delete((req, res) => {
+  let userId = req.session.userId;
+  let movie = req.body;
+  User.findById(userId, (err, user) => {
+    let index = user.watchlist.indexOf(movie.watchlist);
+    if (index === -1) {
+      res.json({ data: 'NOT IN WATCHLIST' });
+    } else {
+      user.watchlist.splice(index, 1);
+      user.save();
+      res.json({
+        data: 'DELETED'
+      });
+    }
+  });
 });
 
 userRoutes.route('/addToWatchList').post((req, res) => {
-  // TODO: Delete Link
   let userId = req.session.userId;
   console.log('OUTPUT: : userId', userId);
   if (userId) {
