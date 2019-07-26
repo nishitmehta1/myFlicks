@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 class Movie extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   addWatchList = id => {
     let movie = {
       watchlist: id.toString()
@@ -10,18 +15,24 @@ class Movie extends Component {
       .post('http://localhost:4000/users/addToWatchList', movie, {
         withCredentials: true
       })
-      .then(res => console.log(res.data));
+      .then(res => {
+        console.log(res.data);
+      });
   };
 
   render() {
-    const { id, src, title, release_date } = this.props;
+    const { id, src, title, release_date, login } = this.props;
     return (
       <div className='card' style={{ width: '18rem' }}>
         <div className='image-container'>
           <img className='card-img-top' src={src} alt={title} />
-          <button onClick={() => this.addWatchList(id)}>
-            <i className='fas fa-plus' />
-          </button>
+          {login ? (
+            <button onClick={() => this.addWatchList(id)}>
+              <i className='fas fa-plus' />
+            </button>
+          ) : (
+            ''
+          )}
         </div>
 
         <div className='card-body'>
