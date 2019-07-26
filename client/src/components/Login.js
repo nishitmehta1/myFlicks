@@ -16,16 +16,16 @@ class LogIn extends Component {
   }
 
   componentDidMount() {
-    // axios
-    //   .get('http://localhost:4000/users/', { withCredentials: true })
-    //   .then(res => {
-    //     console.log(res.data.data);
-    //     if (res.data.data === 'LOGGEDIN') {
-    //       this.props.history.push('/game');
-    //     } else if (res.data.data === 'LOGIN') {
-    //       this.props.history.push('/');
-    //     }
-    //   });
+    axios
+      .get('http://localhost:4000/users/', { withCredentials: true })
+      .then(res => {
+        console.log(res.data.data);
+        if (res.data.data === 'LOGGEDIN') {
+          this.props.history.push('/');
+        } else if (res.data.data === 'LOGIN') {
+          this.props.history.push('/login');
+        }
+      });
   }
 
   onChangeEmail = e => {
