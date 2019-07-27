@@ -33,7 +33,7 @@
   color: white;
   text-align: center;
   margin: auto;
-  font-family: "Shadows Into Light", cursive;
+  font-family: 'Shadows Into Light', cursive;
 }
 
 .app .movies-list {
@@ -59,15 +59,19 @@
   border: red 2px solid !important;
 }
 
-.image-container button {
+.watchlist_icon {
   position: absolute;
-  top: 10%;
-  left: 90%;
+  top: 5%;
+  left: 273px;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   border: none;
   cursor: pointer;
   background-color: transparent;
+}
+
+.watchlist_icon i {
+  color: #81ae9d;
 }
 
 .movies-list {

@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-const Search = (props) => {
+const Search = props => {
   return (
     <div>
       <form onSubmit={props.submit}>
         <input
-          className="input-bar"
-          placeholder="search for a movie"
-          name="search"
+          className='input-bar'
+          placeholder='search for a movie'
+          name='search'
           value={props.search}
           onChange={props.change}
         />
