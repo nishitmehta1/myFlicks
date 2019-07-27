@@ -123,7 +123,6 @@ class Main extends Component {
         title={movie.title}
         release_date={movie.release_date}
         login={this.state.login}
-        movieOverview={this.movieOverview}
       />
     ));
     return (

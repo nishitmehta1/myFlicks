@@ -23,6 +23,7 @@ class Movie extends Component {
 
   render() {
     const { id, src, title, release_date, login } = this.props;
+
     return (
       <div className="card" style={{ width: "18rem" }}>
         <div className="image-container">
@@ -40,7 +41,10 @@ class Movie extends Component {
         </div>
 
         <div className="card-body">
-          <h5 className="card-title">{title}</h5>
+          <Link to={`movie/${id}`}>
+            <h5 className="card-title">{title}</h5>
+          </Link>
+
           <p className="card-text">
             <span>Release Date: </span>
             {release_date}

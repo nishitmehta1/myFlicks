@@ -23,7 +23,7 @@ class Movie extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/${
         this.props.match.params.id
@@ -59,6 +59,18 @@ class Movie extends React.Component {
     const display_genres = this.state.genres.map((i) => (
       <li key={i.id}>{i.name}</li>
     ));
+
+    // let topCast = "";
+    // for (var i = 0; i < 5; i++) {
+    //   if (i === 4) {
+    //     topCast += this.state.cast[i].name + ".";
+    //   } else {
+    //     topCast += this.state.cast[i].name + ", ";
+    //   }
+    // }
+
+    console.log(this.state.cast[0]);
+
     return (
       <div className="movie-container">
         <div className="image-container">
