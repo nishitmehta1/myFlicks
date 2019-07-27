@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Main from './components/Main';
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
-
+import Movie from './components/Movie';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,16 +23,17 @@ class App extends Component {
     return (
       <Router>
         <Route
-          path='/'
           exact
+          path='/'
           component={props => <Main user={this.state.user} />}
         />
         <Route
-          path='/login'
           exact
+          path='/login'
           component={props => <Login setUser={this.setUser} />}
         />
-        <Route path='/createaccount' exact component={CreateAccount} />
+        <Route exact path='/createaccount' component={CreateAccount} />
+        <Route exact path='/movie/:id' component={Movie} />
       </Router>
     );
   }

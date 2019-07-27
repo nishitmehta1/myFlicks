@@ -123,7 +123,6 @@ class Main extends Component {
 
   render() {
     const { watchlist } = this.state;
-    console.log(watchlist);
     return (
       <div className='app'>
         <header>
