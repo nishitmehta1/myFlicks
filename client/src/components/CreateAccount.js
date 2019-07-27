@@ -14,7 +14,8 @@ class CreateAccount extends Component {
       lastname: '',
       email: '',
       password: '',
-      phone: 0
+      phone: 0,
+      alreadyPresent: false
     };
   }
 
@@ -32,7 +33,8 @@ class CreateAccount extends Component {
 
   onChangeEmail = e => {
     this.setState({
-      email: e.target.value
+      email: e.target.value,
+      alreadyPresent: false
     });
   };
 
@@ -60,33 +62,29 @@ class CreateAccount extends Component {
       phone: this.state.phone
     };
     axios.post('http://localhost:4000/users/createuser', newUser).then(res => {
-      console.log(res.data);
-    });
+      if (res.data.data !== 'User Already Present') {
+        console.log(res.data);
+        this.setState({
+          name: '',
+          email: '',
+          password: '',
+          phone: 0,
+          alreadyPresent: false
+        });
 
-    this.setState({
-      name: '',
-      email: '',
-      password: '',
-      phone: 0
+        this.props.history.push('/login');
+      } else {
+        this.setState({
+          alreadyPresent: true
+        });
+      }
     });
-
-    this.props.history.push('/login');
   };
 
   render() {
     return (
       <div>
-        <div className='title'>
-          {/* <span className='titleSpan'>Target Sum Using Drap n' Drop</span>
-          <br />
-          <h5>
-            By, Nishit Mehta{' '}
-            <a className='gitlogo' href='https://github.com/nishitmehta1'>
-              {' '}
-              <img src='github-logo.png' alt='' />{' '}
-            </a>
-          </h5> */}
-        </div>
+        <div className='title' />
         <div className='container'>
           <div className='create'>
             <form className='card' onSubmit={this.onSubmit}>
@@ -116,12 +114,19 @@ class CreateAccount extends Component {
                 <input
                   type='email'
                   onChange={this.onChangeEmail}
-                  className='form-control'
+                  className={`form-control ${
+                    this.state.alreadyPresent ? 'redBorder' : ''
+                  }`}
                   id='exampleInputEmail1'
                   aria-describedby='emailHelp'
                   placeholder='Enter email'
                   required
                 />
+                {this.state.alreadyPresent ? (
+                  <small className='notFoundError'>Email already in use</small>
+                ) : (
+                  ''
+                )}
                 <small id='emailHelp' className='form-text text-muted'>
                   We'll never share your email with anyone else.
                 </small>
