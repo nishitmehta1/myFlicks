@@ -1,26 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 class Movie extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  addWatchList = (id) => {
-    let movie = {
-      watchlist: id.toString()
-    };
-    axios
-      .post("http://localhost:4000/users/addToWatchList", movie, {
-        withCredentials: true
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
-  };
-
   render() {
     const { id, src, title, release_date, login } = this.props;
 
@@ -30,15 +11,21 @@ class Movie extends Component {
           <Link to={`movie/${id}`} className="btn btn-dark btn-block">
             <img className="card-img-top" src={src} alt={title} />
           </Link>
-
-          {login ? (
-            <button onClick={() => this.addWatchList(id)}>
-              <i className="far fa-heart" />
-            </button>
-          ) : (
-            ""
-          )}
         </div>
+        {login ? (
+          <button
+            className="watchlist_icon"
+            onClick={() => this.props.addWatchList(id)}
+          >
+            {this.props.inList ? (
+              <i className="fa fa-check fa-2x" />
+            ) : (
+              <i className="fa fa-plus-square fa-2x" />
+            )}
+          </button>
+        ) : (
+          ""
+        )}
 
         <div className="card-body">
           <Link to={`movie/${id}`}>
