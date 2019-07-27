@@ -119,10 +119,11 @@ class Main extends Component {
       <MovieCard
         key={movie.id}
         id={movie.id}
-        login={this.state.login}
         src={url + movie.backdrop_path}
         title={movie.title}
         release_date={movie.release_date}
+        login={this.state.login}
+        movieOverview={this.movieOverview}
       />
     ));
     return (

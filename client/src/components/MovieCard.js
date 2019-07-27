@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 class Movie extends Component {
@@ -25,7 +26,10 @@ class Movie extends Component {
     return (
       <div className="card" style={{ width: "18rem" }}>
         <div className="image-container">
-          <img className="card-img-top" src={src} alt={title} />
+          <Link to={`movie/${id}`} className="btn btn-dark btn-block">
+            <img className="card-img-top" src={src} alt={title} />
+          </Link>
+
           {login ? (
             <button onClick={() => this.addWatchList(id)}>
               <i className="far fa-heart" />
