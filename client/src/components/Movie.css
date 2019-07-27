@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.movie-container {
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  margin-top: 4vw;
+  flex-wrap: wrap;
+}
+
+.movie-container .image-container {
+  width: 30%;
+}
+
+.movie-container .image-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.movie-container .overview-container {
+  width: 30%;
+}
+
+.movie-container ul {
+  list-style: none;
+}

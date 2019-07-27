@@ -1,4 +1,5 @@
 import React from "react";
+import "./Movie.css";
 
 const API_KEY = "0c95577b9c6f99149dcce7a8abb721b4";
 
@@ -15,7 +16,10 @@ class Movie extends React.Component {
       overview: "",
       runtime: "",
       adult: false,
-      box_office_collection: 0
+      budget: 0,
+      box_office_collection: 0,
+      status: "",
+      cast: []
     };
   }
 
@@ -36,15 +40,31 @@ class Movie extends React.Component {
           title: data.title,
           release_date: data.release_date,
           runtime: data.runtime,
-          box_office_collection: data.revenue
+          budget: data.budget,
+          box_office_collection: data.revenue,
+          status: data.status
         })
       );
+
+    fetch(
+      `https://api.themoviedb.org/3/movie/${
+        this.props.match.params.id
+      }/credits?api_key=${API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => this.setState({ cast: data.cast }));
   };
 
   render() {
+    const display_genres = this.state.genres.map((i) => (
+      <li key={i.id}>{i.name}</li>
+    ));
     return (
       <div className="movie-container">
-        <img src={this.state.poster_path} alt={this.state.title} />
+        <div className="image-container">
+          <img src={this.state.poster_path} alt={this.state.title} />
+        </div>
+
         <div className="overview-container">
           <h1>{this.state.title}</h1>
           <p>
@@ -52,17 +72,35 @@ class Movie extends React.Component {
             {this.state.release_date}
           </p>
           <p>
+            <span>Budget: </span>
+            {Number.isInteger(this.state.budget / 10 ** 6)
+              ? this.state.budget / 10 ** 6
+              : (this.state.budget / 10 ** 6).toFixed(2)}{" "}
+            million USD
+          </p>
+          <p>
             <span>Box Office: </span>
-            {this.state.box_office_collection}
+            {Number.isInteger(this.state.box_office_collection / 10 ** 6)
+              ? this.state.box_office_collection / 10 ** 6
+              : (this.state.box_office_collection / 10 ** 6).toFixed(2)}{" "}
+            million USD
           </p>
           <p>
             <span>Runtime: </span>
-            {this.state.runtime}
+            {this.state.runtime} min
           </p>
           <p>
-            <span>Genres: </span>
-            Genres
+            <span>Status: </span>
+            {this.state.status}
           </p>
+          <div>
+            <span>Cast: </span>
+            <ul>{}</ul>
+          </div>
+          <div>
+            <span>Genres: </span>
+            <ul>{display_genres}</ul>
+          </div>
           <p>
             <span>overview: </span>
             {this.state.overview}
