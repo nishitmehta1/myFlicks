@@ -78,7 +78,7 @@ userRoutes.route('/login').post((req, res) => {
 });
 
 userRoutes.route('/createuser').post((req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   User.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
       res.status(200).json({ data: 'User Already Present' });
@@ -97,16 +97,19 @@ userRoutes.route('/createuser').post((req, res) => {
   });
 });
 
-userRoutes.route('/deleteWatchList').delete((req, res) => {
+userRoutes.route('/deleteWatchList').post((req, res) => {
   let userId = req.session.userId;
   let movie = req.body;
   User.findById(userId, (err, user) => {
+    // console.log(userId, user);
     let index = user.watchlist.indexOf(movie.watchlist);
     if (index === -1) {
       res.json({ data: 'NOT IN WATCHLIST' });
     } else {
       user.watchlist.splice(index, 1);
       user.save();
+      req.session.user = user;
+      console.log('DELETED');
       res.json({
         data: 'DELETED'
       });
@@ -116,16 +119,17 @@ userRoutes.route('/deleteWatchList').delete((req, res) => {
 
 userRoutes.route('/addToWatchList').post((req, res) => {
   let userId = req.session.userId;
-  console.log('OUTPUT: : userId', userId);
+  // console.log('OUTPUT: : userId', userId);
   if (userId) {
     let movie = req.body;
-    console.log('OUTPUT: : movie', movie);
+    // console.log('OUTPUT: : movie', movie);
 
     User.findById(userId, (err, user) => {
       if (user.watchlist.indexOf(movie.watchlist) < 0) {
         user.watchlist.push(movie.watchlist);
         user.save();
         req.session.user = user;
+        console.log('ADDED');
         res.status(200).json({ data: 'Movie Added' });
       } else {
         req.session.user = user;

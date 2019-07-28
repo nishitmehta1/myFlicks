@@ -114,7 +114,7 @@ class Main extends Component {
     this.props.history.push('/login');
   };
 
-  addWatchListToState = async () => {
+  checkWatchListToState = async () => {
     await axios
       .get('http://localhost:4000/users/getWatchList', {
         withCredentials: true
@@ -165,7 +165,7 @@ class Main extends Component {
         )}
         <div className='movies-main'>
           <MovieMain
-            addWatchListToState={this.addWatchListToState}
+            checkWatchListToState={this.checkWatchListToState}
             login={this.state.login}
             watchlist={watchlist}
             info={this.state.info}
