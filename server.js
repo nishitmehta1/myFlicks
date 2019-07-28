@@ -44,6 +44,9 @@ userRoutes.route('/').get((req, res) => {
     res.json({ data: 'LOGIN' });
   } else {
     console.log(userId);
+    // User.findById(userId, (err, user) => {
+
+    // })
     res.json({
       data: 'LOGGEDIN',
       user: req.session.user,
@@ -75,6 +78,7 @@ userRoutes.route('/login').post((req, res) => {
 });
 
 userRoutes.route('/createuser').post((req, res) => {
+  console.log(req.body);
   User.findOne({ email: req.body.email }, (err, user) => {
     if (user) {
       res.status(200).json({ data: 'User Already Present' });
@@ -121,8 +125,10 @@ userRoutes.route('/addToWatchList').post((req, res) => {
       if (user.watchlist.indexOf(movie.watchlist) < 0) {
         user.watchlist.push(movie.watchlist);
         user.save();
+        req.session.user = user;
         res.status(200).json({ data: 'Movie Added' });
       } else {
+        req.session.user = user;
         res.json({
           data: 'Movie Already Present'
         });
@@ -131,6 +137,13 @@ userRoutes.route('/addToWatchList').post((req, res) => {
   } else {
     res.json({ data: 'LOGIN FIRST' });
   }
+});
+
+userRoutes.route('/getWatchList').get((req, res) => {
+  let userId = req.session.userId;
+  User.findById(userId, (err, user) => {
+    res.status(200).json({ data: user.watchlist });
+  });
 });
 
 userRoutes.route('/logout').get((req, res) => {

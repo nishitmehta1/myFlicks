@@ -21,11 +21,11 @@ class Main extends Component {
     };
   }
 
-  componentWillMount = () => {
-    axios
+  componentDidMount = async () => {
+    console.log('DID MOUNT');
+    await axios
       .get('http://localhost:4000/users/', { withCredentials: true })
       .then(res => {
-        // console.log(res.data);
         if (res.data.data === 'LOGGEDIN') {
           this.setState({
             login: true,
@@ -34,7 +34,6 @@ class Main extends Component {
             lastname: res.data.user.name.last,
             watchlist: res.data.user.watchlist
           });
-          // console.log(this.state.user);
         } else if (res.data.data === 'LOGIN') {
           this.setState({
             login: false
@@ -97,12 +96,6 @@ class Main extends Component {
     }
   };
 
-  addWatchListToState = movie => {
-    this.setState({
-      watchlist: [...this.state.watchlist, movie.watchlist]
-    });
-  };
-
   onLogoutClick = () => {
     axios
       .get('http://localhost:4000/users/logout', { withCredentials: true })
@@ -119,6 +112,18 @@ class Main extends Component {
 
   onLoginClick = () => {
     this.props.history.push('/login');
+  };
+
+  addWatchListToState = async () => {
+    await axios
+      .get('http://localhost:4000/users/getWatchList', {
+        withCredentials: true
+      })
+      .then(res => {
+        this.setState({
+          watchlist: res.data.data
+        });
+      });
   };
 
   render() {

@@ -3,11 +3,11 @@ import MovieCard from './MovieCard';
 import axios from 'axios';
 
 class MovieMain extends Component {
-  addWatchList = id => {
+  addWatchList = async id => {
     let movie = {
       watchlist: id.toString()
     };
-    axios
+    await axios
       .post('http://localhost:4000/users/addToWatchList', movie, {
         withCredentials: true
       })
@@ -18,7 +18,6 @@ class MovieMain extends Component {
   };
 
   render() {
-    console.log(this.props.watchlist);
     const url = 'https://image.tmdb.org/t/p/w300';
     return (
       <div className='movies-list'>

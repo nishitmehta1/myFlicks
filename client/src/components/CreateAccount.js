@@ -52,11 +52,14 @@ class CreateAccount extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    console.log('User Account Created', this.state.name);
+    console.log('User Account Created', this.state.firstname);
     const newUser = {
-      profilepic: 'https://robohash.org/' + this.state.name + '?size=200x200',
-      firstname: this.state.name,
-      lastname: this.state.name,
+      profilepic:
+        'https://robohash.org/' + this.state.firstname + '?size=200x200',
+      name: {
+        first: this.state.firstname,
+        last: this.state.lastname
+      },
       email: this.state.email.toLowerCase(),
       password: this.state.password,
       phone: this.state.phone
@@ -65,7 +68,8 @@ class CreateAccount extends Component {
       if (res.data.data !== 'User Already Present') {
         console.log(res.data);
         this.setState({
-          name: '',
+          firstname: '',
+          lastname: '',
           email: '',
           password: '',
           phone: 0,
@@ -103,7 +107,7 @@ class CreateAccount extends Component {
                   type='name'
                   onChange={this.onChangeLastName}
                   className='form-control'
-                  id='exampleInputName1'
+                  id='exampleInputName2'
                   aria-describedby='emailHelp'
                   placeholder='Enter last name'
                   required
