@@ -7,12 +7,11 @@ class Search extends Component {
     super(props);
     this.state = {
       info: [],
-      search: '',
-      trending: []
+      search: ''
     };
   }
 
-  handleChange = async e => {
+  handleChange = e => {
     const search = e.target.value;
     if (search === '') {
       this.setState(
@@ -21,19 +20,23 @@ class Search extends Component {
           search: ''
         },
         () => {
-          this.props.change(this.state.info);
+          this.props.change(this.state.info, this.state.search);
         }
       );
     } else {
-      await fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${search}`
-      )
-        .then(response => response.json())
-        .then(data =>
-          this.setState({ info: data.results, search: search }, () => {
-            this.props.change(this.state.info);
-          })
-        );
+      this.setState({ search: search }, async () => {
+        await fetch(
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${
+            this.state.search
+          }`
+        )
+          .then(response => response.json())
+          .then(data =>
+            this.setState({ info: data.results }, () => {
+              this.props.change(this.state.info, this.state.search);
+            })
+          );
+      });
     }
   };
 

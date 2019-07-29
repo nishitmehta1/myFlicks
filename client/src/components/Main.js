@@ -17,7 +17,9 @@ class Main extends Component {
       firstname: '',
       lastname: '',
       user: {},
-      watchlist: []
+      watchlist: [],
+      notFound: false,
+      search: ''
     };
   }
 
@@ -67,15 +69,23 @@ class Main extends Component {
       });
   };
 
-  handleChange = info => {
+  handleChange = (info, search) => {
     console.log(info);
-    if (info.length !== 0) {
+    if (info.length !== 0 && search.length !== 0) {
       this.setState({
-        info: info
+        info: info,
+        notFound: false
+      });
+    } else if (info.length === 0 && search.length !== 0) {
+      this.setState({
+        info: this.state.trending,
+        notFound: true,
+        search: search
       });
     } else {
       this.setState({
-        info: this.state.trending
+        info: this.state.trending,
+        notFound: false
       });
     }
   };
@@ -126,12 +136,18 @@ class Main extends Component {
           </div>
         )}
         <div className='movies-main'>
-          <MovieMain
-            checkWatchListToState={this.checkWatchListToState}
-            login={this.state.login}
-            watchlist={watchlist}
-            info={this.state.info}
-          />
+          {this.state.notFound ? (
+            <div className='container'>
+              <h4>No such movie found</h4>
+            </div>
+          ) : (
+            <MovieMain
+              checkWatchListToState={this.checkWatchListToState}
+              login={this.state.login}
+              watchlist={watchlist}
+              info={this.state.info}
+            />
+          )}
         </div>
       </div>
     );
