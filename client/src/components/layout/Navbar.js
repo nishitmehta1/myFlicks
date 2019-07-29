@@ -5,7 +5,7 @@ const Navbar = props => {
   return (
     <div>
       <header>
-        <Link to='/' style={{ 'text-decoration': 'none' }}>
+        <Link to='/' className='header' style={{ textDecoration: 'none' }}>
           <h1 className='header'>MyFlicks</h1>
         </Link>
       </header>

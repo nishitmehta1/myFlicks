@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
 
 class Search extends Component {
@@ -59,16 +58,16 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
+      <div className='search__container container'>
         <form onSubmit={this.handleSubmit}>
           <input
-            className='input-bar'
+            className='search__input'
+            type='text'
             placeholder='Search for a movie'
-            name='search'
             value={this.state.search}
             onChange={this.handleChange}
           />
-          <button onClick={this.handleSubmit}>search</button>
+          {/* <button onClick={this.handleSubmit}>search</button> */}
         </form>
       </div>
     );
