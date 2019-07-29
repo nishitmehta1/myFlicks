@@ -67,6 +67,7 @@ class Main extends Component {
           });
         }
       });
+    this.props.history.push('/');
   };
 
   handleChange = (info, search) => {

@@ -16,7 +16,7 @@ class Movie extends Component {
     return (
       <div className='card' style={{ width: '18rem' }}>
         <div className='image-container'>
-          <Link to={`movie/${id}`} className='btn-dark btn-block'>
+          <Link to={`movie/${id}`}>
             <img className='card-img-top movie-img' src={img_src} alt={title} />
           </Link>
         </div>
@@ -24,11 +24,14 @@ class Movie extends Component {
           <button
             className='watchlist_icon'
             onClick={() => this.props.toggleWatchList(id, inList)}
+            data-toggle='tooltip'
+            data-placement='top'
+            title={`${inList ? 'Remove from' : 'Add to'} your watchlist`}
           >
             {inList ? (
-              <i className='fa fa-check fa-2x' />
+              <i className='fa fa-check fa-2x' alt='TEST' />
             ) : (
-              <i className='fa fa-plus-square fa-2x' />
+              <i className='fa fa-plus fa-2x' />
             )}
           </button>
         ) : (

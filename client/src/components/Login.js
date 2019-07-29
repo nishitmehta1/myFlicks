@@ -79,10 +79,6 @@ class LogIn extends Component {
   render() {
     return (
       <div className=''>
-        <div className='title'>
-          <span className='titleSpan'>Header</span>
-          <br />
-        </div>
         <div className='container'>
           <div className='login'>
             <form className='card' onSubmit={this.onSubmit}>
