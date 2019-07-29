@@ -1,35 +1,35 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 class LogIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       notfound: false,
       incorrectPass: false,
-      sessionID: '',
+      sessionID: "",
       user: {}
     };
   }
 
   componentDidMount() {
     axios
-      .get('http://localhost:4000/users/', { withCredentials: true })
-      .then(res => {
+      .get("http://localhost:4000/users/", { withCredentials: true })
+      .then((res) => {
         console.log(res.data.data);
-        if (res.data.data === 'LOGGEDIN') {
-          this.props.history.push('/');
-        } else if (res.data.data === 'LOGIN') {
-          this.props.history.push('/login');
+        if (res.data.data === "LOGGEDIN") {
+          this.props.history.push("/");
+        } else if (res.data.data === "LOGIN") {
+          this.props.history.push("/login");
         }
       });
   }
 
-  onChangeEmail = e => {
+  onChangeEmail = (e) => {
     this.setState({
       email: e.target.value,
       notfound: false,
@@ -38,14 +38,14 @@ class LogIn extends Component {
     });
   };
 
-  onChangePassword = e => {
+  onChangePassword = (e) => {
     this.setState({
       password: e.target.value,
       incorrectPass: false
     });
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
 
     const user = {
@@ -54,81 +54,77 @@ class LogIn extends Component {
     };
 
     axios
-      .post('http://localhost:4000/users/login', user, {
+      .post("http://localhost:4000/users/login", user, {
         withCredentials: true
       })
-      .then(res => {
-        if (res.data.data === 'NOTFOUND') {
+      .then((res) => {
+        if (res.data.data === "NOTFOUND") {
           this.setState({
             notfound: !this.state.notfound
           });
-        } else if (res.data.data === 'INVALID') {
+        } else if (res.data.data === "INVALID") {
           this.setState({
             incorrectPass: true
           });
-        } else if (res.data.data === 'PASS') {
+        } else if (res.data.data === "PASS") {
           this.setState({ user: res.data.user, incorrectPass: false }, () => {
             this.props.setUser(this.state.user);
             console.log(this.state.user);
           });
-          this.props.history.push('/');
+          this.props.history.push("/");
         }
       });
   };
 
   render() {
     return (
-      <div className=''>
-        <div className='title'>
-          <span className='titleSpan'>Header</span>
-          <br />
-        </div>
-        <div className='container'>
-          <div className='login'>
-            <form className='card' onSubmit={this.onSubmit}>
-              <div className='form-group formEmail'>
-                <label htmlFor='exampleInputEmail1'>Email address</label>
+      <div className="">
+        <div className="container">
+          <div className="login">
+            <form className="card" onSubmit={this.onSubmit}>
+              <div className="form-group formEmail">
+                <label htmlFor="exampleInputEmail1">Email address</label>
                 <input
-                  type='email'
+                  type="email"
                   onChange={this.onChangeEmail}
                   className={`form-control ${
-                    this.state.notfound ? 'redBorder' : ''
+                    this.state.notfound ? "redBorder" : ""
                   }`}
-                  id='exampleInputEmail1'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter email'
+                  id="exampleInputEmail1"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter email"
                   required
                 />
                 {this.state.notfound ? (
-                  <small className='notFoundError'>Email id not found</small>
+                  <small className="notFoundError">Email id not found</small>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
-              <div className='form-group formPassword formPasswordInt'>
-                <label htmlFor='exampleInputPassword1'>Password</label>
+              <div className="form-group formPassword formPasswordInt">
+                <label htmlFor="exampleInputPassword1">Password</label>
                 <input
-                  type='password'
+                  type="password"
                   onChange={this.onChangePassword}
-                  className='form-control'
-                  id='exampleInputPassword1'
-                  placeholder='Password'
+                  className="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Password"
                   required
                 />
                 {this.state.incorrectPass ? (
-                  <small className='incorrectPass'>
+                  <small className="incorrectPass">
                     Email and Password do not match
                   </small>
                 ) : (
-                  ''
+                  ""
                 )}
               </div>
-              <button type='submit' className='loginButton btn-primary'>
+              <button type="submit" className="loginButton btn-primary">
                 Submit
               </button>
             </form>
-            <div className='createAccountLink'>
-              <Link to='/createAccount'>Create Account?</Link>
+            <div className="createAccountLink">
+              <Link to="/createAccount">Create Account?</Link>
             </div>
           </div>
         </div>
