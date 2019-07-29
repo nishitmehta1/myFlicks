@@ -1,0 +1,12 @@
+header {
+  background-color: #9c202098;
+  height: 7vh;
+  margin-bottom: 3vh;
+}
+
+.header {
+  color: white;
+  text-align: center;
+  margin: auto;
+  font-family: "Shadows Into Light", cursive;
+}

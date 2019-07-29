@@ -100,10 +100,6 @@ class Main extends Component {
     const { watchlist } = this.state;
     return (
       <div className='app'>
-        <header>
-          <h1 className='header'>MyFlicks</h1>
-        </header>
-
         <div className='search-bar'>
           <Search change={this.handleChange} />
         </div>
