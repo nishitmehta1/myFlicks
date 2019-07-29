@@ -5,8 +5,10 @@ header {
 }
 
 .header {
+  margin-left: auto;
+  margin-right: auto;
   color: white;
+  font-size: 4vh;
   text-align: center;
-  margin: auto;
-  font-family: 'Shadows Into Light', cursive;
+  font-family: "Shadows Into Light", cursive;
 }
