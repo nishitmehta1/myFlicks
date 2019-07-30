@@ -44,9 +44,6 @@ userRoutes.route('/').get((req, res) => {
     res.json({ data: 'LOGIN' });
   } else {
     console.log(userId);
-    // User.findById(userId, (err, user) => {
-
-    // })
     res.json({
       data: 'LOGGEDIN',
       user: req.session.user,
@@ -102,7 +99,7 @@ userRoutes.route('/deleteWatchList').post((req, res) => {
   let movie = req.body;
   User.findById(userId, (err, user) => {
     // console.log(userId, user);
-    let index = user.watchlist.indexOf(movie.watchlist);
+    let index = user.watchlist.findIndex(x => x.id === movie.id);
     if (index === -1) {
       res.json({ data: 'NOT IN WATCHLIST' });
     } else {
@@ -123,10 +120,13 @@ userRoutes.route('/addToWatchList').post((req, res) => {
   if (userId) {
     let movie = req.body;
     // console.log('OUTPUT: : movie', movie);
-
     User.findById(userId, (err, user) => {
-      if (user.watchlist.indexOf(movie.watchlist) < 0) {
-        user.watchlist.push(movie.watchlist);
+      if (
+        !user.watchlist.some(function(id) {
+          return id.id === movie.id;
+        })
+      ) {
+        user.watchlist.push(movie);
         user.save();
         req.session.user = user;
         console.log('ADDED');

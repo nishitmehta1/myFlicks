@@ -23,7 +23,15 @@ class Movie extends Component {
         {login ? (
           <button
             className='watchlist_icon'
-            onClick={() => this.props.toggleWatchList(id, inList)}
+            onClick={() =>
+              this.props.toggleWatchList(
+                id,
+                title,
+                img_src,
+                release_date,
+                inList
+              )
+            }
             data-toggle='tooltip'
             data-placement='top'
             title={`${inList ? 'Remove from' : 'Add to'} your watchlist`}
