@@ -114,28 +114,6 @@ class Main extends Component {
         <div className='search-bar'>
           <Search change={this.handleChange} />
         </div>
-        {this.state.login ? (
-          <div>
-            <button
-              style={{ width: '10rem' }}
-              className='btn btn-primary btn-lg logout'
-              onClick={this.onLogoutClick}
-            >
-              Logout
-            </button>
-            <h4>Hello, {this.state.firstname}</h4>
-          </div>
-        ) : (
-          <div>
-            <button
-              style={{ width: '10rem' }}
-              className='btn btn-primary btn-lg login'
-              onClick={this.onLoginClick}
-            >
-              Login
-            </button>
-          </div>
-        )}
         <div className='movies-main'>
           {this.state.notFound ? (
             <div className='container'>

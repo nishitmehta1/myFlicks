@@ -5,6 +5,7 @@
 .search__container form {
   margin: auto;
   width: 50%;
+  margin-bottom: 3.2em;
 }
 
 .search__input {

@@ -4,18 +4,46 @@
   max-height: 10vh;
   margin-bottom: 5vh;
   width: 100%;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: flex-end;
 }
 
 .brand {
   color: white;
   font-size: 2.5em;
   text-align: center;
-  margin-left: 1em;
+  /* margin-left: 24%; */
+}
+
+.brand-div {
+  margin-left: 14%;
 }
 
 .brand:hover {
   color: white;
+}
+
+.nav-container {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  box-shadow: 0px 0.5px 0px #cacaca;
+  /* box-shadow: -3px 17px 15px -17px #575656; */
+}
+
+.dropdown-main {
+  max-width: 9em;
+  margin-right: 17%;
+}
+
+.dropdown-menu {
+  left: -60px;
+}
+
+.dropdown-toggle {
+  color: white;
+  font-size: 1.4em;
+}
+
+.dropdown-toggle:hover {
+  color: antiquewhite;
 }
