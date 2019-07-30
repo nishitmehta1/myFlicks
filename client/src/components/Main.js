@@ -1,34 +1,34 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import Search from './Search';
-import MovieMain from './MovieMain';
-import axios from 'axios';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import Search from "./Search";
+import MovieMain from "./MovieMain";
+import axios from "axios";
 
-const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
+// const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
 
 class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
+      query: "",
       info: [],
       trending: [],
       login: false,
-      firstname: '',
-      lastname: '',
+      firstname: "",
+      lastname: "",
       user: {},
       watchlist: [],
       notFound: false,
-      search: ''
+      search: ""
     };
   }
 
   componentDidMount = async () => {
-    console.log('DID MOUNT');
+    console.log("DID MOUNT");
     await axios
-      .get('http://localhost:4000/users/', { withCredentials: true })
-      .then(res => {
-        if (res.data.data === 'LOGGEDIN') {
+      .get("http://localhost:4000/users/", { withCredentials: true })
+      .then((res) => {
+        if (res.data.data === "LOGGEDIN") {
           this.setState({
             login: true,
             user: res.data.user,
@@ -36,21 +36,23 @@ class Main extends Component {
             lastname: res.data.user.name.last,
             watchlist: res.data.user.watchlist
           });
-        } else if (res.data.data === 'LOGIN') {
+        } else if (res.data.data === "LOGIN") {
           this.setState({
             login: false
           });
         }
       });
     await fetch(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${
+        process.env.REACT_APP_TMDB_API_KEY
+      }`
     )
-      .then(response => response.json())
-      .then(data =>
+      .then((response) => response.json())
+      .then((data) =>
         this.setState({
           info: data.results,
           trending: data.results,
-          search: ''
+          search: ""
         })
       );
   };
@@ -78,10 +80,10 @@ class Main extends Component {
 
   checkWatchListToState = async () => {
     await axios
-      .get('http://localhost:4000/users/getWatchList', {
+      .get("http://localhost:4000/users/getWatchList", {
         withCredentials: true
       })
-      .then(res => {
+      .then((res) => {
         this.setState({
           watchlist: res.data.data
         });
@@ -91,13 +93,13 @@ class Main extends Component {
   render() {
     const { watchlist } = this.state;
     return (
-      <div className='app'>
-        <div className='search-bar'>
+      <div className="app">
+        <div className="search-bar">
           <Search change={this.handleChange} />
         </div>
-        <div className='movies-main'>
+        <div className="movies-main">
           {this.state.notFound ? (
-            <div className='container'>
+            <div className="container">
               <h4>No such movie found</h4>
             </div>
           ) : (
