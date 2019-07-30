@@ -14,24 +14,24 @@ class Navbar extends Component {
     };
   }
 
-  // componentWillMount = async () => {
-  //   console.log('DID MOUNT');
-  //   await axios
-  //     .get('http://localhost:4000/users/', { withCredentials: true })
-  //     .then(res => {
-  //       if (res.data.data === 'LOGGEDIN') {
-  //         this.setState({
-  //           login: true,
-  //           firstname: res.data.user.name.first,
-  //           lastname: res.data.user.name.last
-  //         });
-  //       } else if (res.data.data === 'LOGIN') {
-  //         this.setState({
-  //           login: false
-  //         });
-  //       }
-  //     });
-  // };
+  componentWillMount = async () => {
+    console.log('DID MOUNT');
+    await axios
+      .get('http://localhost:4000/users/', { withCredentials: true })
+      .then(res => {
+        if (res.data.data === 'LOGGEDIN') {
+          this.setState({
+            login: true,
+            firstname: res.data.user.name.first,
+            lastname: res.data.user.name.last
+          });
+        } else if (res.data.data === 'LOGIN') {
+          this.setState({
+            login: false
+          });
+        }
+      });
+  };
 
   onLoginClick = () => {
     this.props.history.push('/login');
@@ -43,9 +43,7 @@ class Navbar extends Component {
       .then(res => {
         if (res.data.data === 'LOGIN') {
           this.setState({
-            login: false,
-            firstname: '',
-            lastname: ''
+            login: false
           });
         }
       });
@@ -67,7 +65,7 @@ class Navbar extends Component {
             className='collapse navbar-collapse dropdown-main'
             id='navbarSupportedContent'
           >
-            {this.props.login ? (
+            {this.props.login || this.state.login ? (
               <ul className='navbar-nav'>
                 <li className='nav-item dropdown'>
                   <Link
@@ -80,7 +78,7 @@ class Navbar extends Component {
                     aria-haspopup='true'
                     aria-expanded='false'
                   >
-                    Hello, {this.props.user.name.first}
+                    Hello, {this.props.firstname}
                   </Link>
                   <div
                     className='dropdown-menu'

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
-import _ from 'lodash';
+import axios from 'axios';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Main from './components/Main';
@@ -15,9 +15,30 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
+      firstname: '',
+      lastname: '',
       login: false
     };
   }
+
+  componentWillMount = async () => {
+    console.log('DID MOUNT');
+    await axios
+      .get('http://localhost:4000/users/', { withCredentials: true })
+      .then(res => {
+        if (res.data.data === 'LOGGEDIN') {
+          this.setState({
+            login: true,
+            firstname: res.data.user.name.first,
+            lastname: res.data.user.name.last
+          });
+        } else if (res.data.data === 'LOGIN') {
+          this.setState({
+            login: false
+          });
+        }
+      });
+  };
 
   setUser = (user, login) => {
     this.setState({ user, login });
@@ -34,7 +55,8 @@ class App extends Component {
     return (
       <Router>
         <Navbar
-          user={this.state.user}
+          firstname={this.state.firstname}
+          lastname={this.state.lastname}
           toggleLogin={this.toggleLogin}
           login={this.state.login}
         />
