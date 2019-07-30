@@ -22,7 +22,7 @@ class App extends Component {
   }
 
   componentWillMount = async () => {
-    console.log('DID MOUNT');
+    // console.log('DID MOUNT');
     await axios
       .get('http://localhost:4000/users/', { withCredentials: true })
       .then(res => {
@@ -41,7 +41,13 @@ class App extends Component {
   };
 
   setUser = (user, login) => {
-    this.setState({ user, login });
+    console.log(user);
+    this.setState({ user: user, login: login }, () => {
+      this.setState({
+        firstname: this.state.user.name.first,
+        lastname: this.state.user.name.last
+      });
+    });
   };
 
   toggleLogin = () => {
@@ -55,6 +61,7 @@ class App extends Component {
     return (
       <Router>
         <Navbar
+          user={this.state.user}
           firstname={this.state.firstname}
           lastname={this.state.lastname}
           toggleLogin={this.toggleLogin}

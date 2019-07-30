@@ -1,9 +1,9 @@
-@import "./components/Search.css";
+@import './components/Search.css';
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .app .movies-list {
@@ -50,8 +50,12 @@
   background-color: transparent;
 }
 
-.watchlist_icon i {
-  color: #81ae9d;
+.fa-plus {
+  color: rgb(145, 135, 135);
+}
+
+.fa-check {
+  color: rgb(134, 240, 222);
 }
 
 .movies-list {

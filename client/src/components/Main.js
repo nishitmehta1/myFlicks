@@ -24,7 +24,7 @@ class Main extends Component {
   }
 
   componentDidMount = async () => {
-    console.log('DID MOUNT');
+    // console.log('DID MOUNT');
     await axios
       .get('http://localhost:4000/users/', { withCredentials: true })
       .then(res => {

@@ -14,25 +14,6 @@ class Navbar extends Component {
     };
   }
 
-  componentWillMount = async () => {
-    console.log('DID MOUNT');
-    await axios
-      .get('http://localhost:4000/users/', { withCredentials: true })
-      .then(res => {
-        if (res.data.data === 'LOGGEDIN') {
-          this.setState({
-            login: true,
-            firstname: res.data.user.name.first,
-            lastname: res.data.user.name.last
-          });
-        } else if (res.data.data === 'LOGIN') {
-          this.setState({
-            login: false
-          });
-        }
-      });
-  };
-
   onLoginClick = () => {
     this.props.history.push('/login');
   };
@@ -52,7 +33,6 @@ class Navbar extends Component {
   };
 
   render() {
-    console.log(this.props.login);
     return (
       <nav className='navbar navbar-main navbar-expand-lg'>
         <div className='nav-container'>
@@ -87,11 +67,11 @@ class Navbar extends Component {
                     <Link to='/watchlist' className='dropdown-item' href='#'>
                       My Watchlist
                     </Link>
-                    <Link to='/' className='dropdown-item' href='#'>
+                    <Link to='/' className='dropdown-item disabled' href='#'>
                       My Friends
                     </Link>
                     <div className='dropdown-divider' />
-                    <Link to='/' className='dropdown-item' href='#'>
+                    <Link to='/' className='dropdown-item disabled' href='#'>
                       Edit Profile
                     </Link>
                     <Link

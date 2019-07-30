@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import './login.css';
 import axios from 'axios';
 
 class LogIn extends Component {
@@ -78,53 +79,79 @@ class LogIn extends Component {
 
   render() {
     return (
-      <div className=''>
+      <div className='login-main'>
         <div className='container'>
-          <div className='login'>
-            <form className='card' onSubmit={this.onSubmit}>
-              <div className='form-group formEmail'>
-                <label htmlFor='exampleInputEmail1'>Email address</label>
-                <input
-                  type='email'
-                  onChange={this.onChangeEmail}
-                  className={`form-control ${
-                    this.state.notfound ? 'redBorder' : ''
-                  }`}
-                  id='exampleInputEmail1'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter email'
-                  required
-                />
-                {this.state.notfound ? (
-                  <small className='notFoundError'>Email id not found</small>
-                ) : (
-                  ''
-                )}
+          <div className='row'>
+            <div className='col-sm-9 col-md-7 col-lg-5 mx-auto'>
+              <div className='card card-signin my-5'>
+                <div className='card-body'>
+                  <h5 className='card-title text-center'>Sign In</h5>
+                  <form className='form-signin' onSubmit={this.onSubmit}>
+                    <div className='form-label-group'>
+                      <input
+                        type='email'
+                        id='inputEmail'
+                        onChange={this.onChangeEmail}
+                        className={`form-control ${
+                          this.state.notfound ? 'redBorder' : ''
+                        }`}
+                        placeholder='Email address'
+                        required
+                        autoFocus
+                      />
+                      <label htmlFor='inputEmail'>Email address</label>
+                      {this.state.notfound ? (
+                        <small className='notFoundError'>
+                          Email id not found
+                        </small>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div className='form-label-group'>
+                      <input
+                        type='password'
+                        id='inputPassword'
+                        onChange={this.onChangePassword}
+                        className='form-control'
+                        placeholder='Password'
+                        required
+                      />
+                      <label htmlFor='inputPassword'>Password</label>
+
+                      {this.state.incorrectPass ? (
+                        <small className='incorrectPass'>
+                          Email and Password do not match
+                        </small>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+
+                    {/* <div class='custom-control custom-checkbox mb-3'>
+                    <input
+                      type='checkbox'
+                      class='custom-control-input'
+                      id='customCheck1'
+                    />
+                    <label class='custom-control-label' for='customCheck1'>
+                      Remember password
+                    </label>
+                  </div> */}
+
+                    <button
+                      className='btn btn-lg btn-primary btn-block text-uppercase'
+                      type='submit'
+                    >
+                      Sign in
+                    </button>
+                  </form>
+
+                  <div className='createAccountLink'>
+                    <Link to='/createAccount'>Create Account?</Link>
+                  </div>
+                </div>
               </div>
-              <div className='form-group formPassword formPasswordInt'>
-                <label htmlFor='exampleInputPassword1'>Password</label>
-                <input
-                  type='password'
-                  onChange={this.onChangePassword}
-                  className='form-control'
-                  id='exampleInputPassword1'
-                  placeholder='Password'
-                  required
-                />
-                {this.state.incorrectPass ? (
-                  <small className='incorrectPass'>
-                    Email and Password do not match
-                  </small>
-                ) : (
-                  ''
-                )}
-              </div>
-              <button type='submit' className='loginButton btn-primary'>
-                Submit
-              </button>
-            </form>
-            <div className='createAccountLink'>
-              <Link to='/createAccount'>Create Account?</Link>
             </div>
           </div>
         </div>
