@@ -47,7 +47,20 @@ class Watchlist extends React.Component {
       </div>
     ));
 
-    return <div className="watchlist">{watchList}</div>;
+    return (
+      <div>
+        <div className="back">
+          <button
+            onClick={() => {
+              this.props.history.push("/");
+            }}
+          >
+            Back
+          </button>
+        </div>
+        <div className="watchlist">{watchList}</div>
+      </div>
+    );
   }
 }
 

@@ -123,14 +123,12 @@ class Movie extends React.Component {
 
     return (
       <div className="movie-container">
-        <div className="back-button-div">
+        <div className="back-button">
           <button
-            className="back-button"
             onClick={() => {
               this.props.history.push("/");
             }}
           >
-            <i className="fa fa-long-arrow-left" />
             Back
           </button>
         </div>

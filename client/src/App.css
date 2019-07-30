@@ -8,8 +8,9 @@
 
 .app .movies-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
+  align-content: space-around;
 }
 
 .a_card_title:hover {
@@ -61,22 +62,5 @@
 
 .app .card {
   margin-bottom: 5vh;
-}
-
-.back-button {
-  background: transparent;
-  border: none;
-  font-size: 1.8em;
-  background: transparent;
-  color: #81ae9d;
-}
-
-.back-button i {
-  margin-right: 10px;
-}
-
-.back-button-div {
-  border-bottom: 2px solid #81ae9d;
-  text-decoration: underline;
-  max-height: 2.5em;
+  margin-right: 2vw;
 }

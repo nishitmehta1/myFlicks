@@ -28,3 +28,12 @@
 .movie-container ul {
   list-style: none;
 }
+
+.movie-container .back-button button {
+  color: #1a7053;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  margin-left: 3vw;
+  text-decoration: underline;
+}
