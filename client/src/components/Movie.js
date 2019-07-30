@@ -2,8 +2,6 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import "./Movie.css";
 
-const API_KEY = "0c95577b9c6f99149dcce7a8abb721b4";
-
 class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -35,12 +33,12 @@ class Movie extends React.Component {
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }?api_key=${API_KEY}&language=en-US`
+        }?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
       ),
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }/credits?api_key=${API_KEY}`
+        }/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       )
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
@@ -123,14 +121,12 @@ class Movie extends React.Component {
 
     return (
       <div className="movie-container">
-        <div className="back-button-div">
+        <div className="back-button">
           <button
-            className="back-button"
             onClick={() => {
               this.props.history.push("/");
             }}
           >
-            <i className="fa fa-long-arrow-left" />
             Back
           </button>
         </div>

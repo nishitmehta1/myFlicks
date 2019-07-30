@@ -4,7 +4,7 @@ import Search from './Search';
 import MovieMain from './MovieMain';
 import axios from 'axios';
 
-const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
+// const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
 
 class Main extends Component {
   constructor(props) {
@@ -43,7 +43,9 @@ class Main extends Component {
         }
       });
     await fetch(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${
+        process.env.REACT_APP_TMDB_API_KEY
+      }`
     )
       .then(response => response.json())
       .then(data =>
