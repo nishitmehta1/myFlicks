@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import _ from 'lodash';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Main from './components/Main';
@@ -13,22 +14,36 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {}
+      user: {},
+      login: false
     };
   }
 
-  setUser = user => {
-    this.setState({ user });
+  setUser = (user, login) => {
+    this.setState({ user, login });
+  };
+
+  toggleLogin = () => {
+    this.setState({
+      login: false,
+      user: {}
+    });
   };
 
   render() {
     return (
       <Router>
-        <Navbar user={this.state.user} />
+        <Navbar
+          user={this.state.user}
+          toggleLogin={this.toggleLogin}
+          login={this.state.login}
+        />
         <Route
           exact
           path='/'
-          component={props => <Main user={this.state.user} />}
+          component={props => (
+            <Main user={this.state.user} login={this.state.login} />
+          )}
         />
         <Route
           exact

@@ -55,21 +55,6 @@ class Main extends Component {
       );
   };
 
-  onLogoutClick = () => {
-    axios
-      .get('http://localhost:4000/users/logout', { withCredentials: true })
-      .then(res => {
-        if (res.data.data === 'LOGIN') {
-          this.setState({
-            login: false,
-            firstname: '',
-            lastname: ''
-          });
-        }
-      });
-    this.props.history.push('/');
-  };
-
   handleChange = (info, search) => {
     console.log(info);
     if (info.length !== 0 && search.length !== 0) {
@@ -89,10 +74,6 @@ class Main extends Component {
         notFound: false
       });
     }
-  };
-
-  onLoginClick = () => {
-    this.props.history.push('/login');
   };
 
   checkWatchListToState = async () => {
@@ -122,7 +103,7 @@ class Main extends Component {
           ) : (
             <MovieMain
               checkWatchListToState={this.checkWatchListToState}
-              login={this.state.login}
+              login={this.props.login}
               watchlist={watchlist}
               info={this.state.info}
             />

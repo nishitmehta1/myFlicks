@@ -68,7 +68,7 @@ class LogIn extends Component {
           });
         } else if (res.data.data === 'PASS') {
           this.setState({ user: res.data.user, incorrectPass: false }, () => {
-            this.props.setUser(this.state.user);
+            this.props.setUser(this.state.user, true);
             console.log(this.state.user);
           });
           this.props.history.push('/');
