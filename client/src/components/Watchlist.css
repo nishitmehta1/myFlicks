@@ -1,0 +1,14 @@
+.watchlist {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.watchlist {
+  width: 70vw;
+  margin: auto;
+}
+
+.watchlist .card {
+  margin-bottom: 5vh;
+}

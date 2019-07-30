@@ -1,32 +1,54 @@
 import React from "react";
+import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
+import "./Watchlist.css";
 
 class Watchlist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      movies_list: [233]
+      moviesList: []
     };
   }
 
   componentDidMount = () => {
     axios
-      .get("http://localhost:4000/users/getWatchList")
-      .then((res) => this.setState({ movies_list: res.data }))
+      .get("http://localhost:4000/users/getWatchList", {
+        withCredentials: true
+      })
+      .then((res) => this.setState({ moviesList: res.data.data }))
       .catch((err) => console.log("Error while fetching data", err));
   };
 
   render() {
-    const watchList = this.state.movies_list.map((movie) => (
-      <li key={movie}>{movie}</li>
-    ));
-    return (
-      <div>
-        <h1>Hey jude</h1>
-        <ul>{watchList}</ul>
+    // console.log(this.state.moviesList);
+    const watchList = this.state.moviesList.map((movie) => (
+      <div className="card" key={movie.id} style={{ width: "18rem" }}>
+        <div className="image-container">
+          <Link to={`movie/${movie.id}`}>
+            <img
+              className="card-img-top movie-img"
+              src={movie.image}
+              alt={movie.title}
+            />
+          </Link>
+        </div>
+
+        <div className="card-body">
+          <Link to={`movie/${movie.id}`} className="a_card_title">
+            <h5 className="card-title">{movie.title}</h5>
+          </Link>
+
+          <p className="card-text">
+            <span>Release Date: </span>
+            {movie.release_date}
+          </p>
+        </div>
       </div>
-    );
+    ));
+
+    return <div className="watchlist">{watchList}</div>;
   }
 }
 
-export default Watchlist;
+export default withRouter(Watchlist);
