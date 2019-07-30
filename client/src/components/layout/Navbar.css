@@ -1,14 +1,21 @@
-header {
+.navbar-main {
   background-color: #9c202098;
-  height: 7vh;
+  padding: 0.1em;
+  max-height: 10vh;
   margin-bottom: 5vh;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
 }
 
-.header {
-  margin-left: auto;
-  margin-right: auto;
+.brand {
   color: white;
-  font-size: 4vh;
+  font-size: 2.5em;
   text-align: center;
-  font-family: "Shadows Into Light", cursive;
+  margin-left: 1em;
+}
+
+.brand:hover {
+  color: white;
 }
