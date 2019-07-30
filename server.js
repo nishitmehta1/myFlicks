@@ -145,9 +145,13 @@ userRoutes.route('/addToWatchList').post((req, res) => {
 
 userRoutes.route('/getWatchList').get((req, res) => {
   let userId = req.session.userId;
-  User.findById(userId, (err, user) => {
-    res.status(200).json({ data: user.watchlist });
-  });
+  if (userId) {
+    User.findById(userId, (err, user) => {
+      res.status(200).json({ data: user.watchlist });
+    });
+  } else {
+    console.log('No Session active');
+  }
 });
 
 userRoutes.route('/logout').get((req, res) => {
