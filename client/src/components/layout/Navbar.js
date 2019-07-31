@@ -91,7 +91,7 @@ class Navbar extends Component {
               <div>
                 <button
                   style={{ width: '10rem' }}
-                  className='btn btn-primary btn-lg login'
+                  className='btn btn-lg login'
                   onClick={this.onLoginClick}
                 >
                   Login

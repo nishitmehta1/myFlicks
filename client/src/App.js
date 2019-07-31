@@ -10,6 +10,7 @@ import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Movie from './components/Movie';
 import Watchlist from './components/Watchlist';
+import Footer from './components/layout/Footer';
 // require('dotenv');
 class App extends Component {
   constructor(props) {
@@ -83,6 +84,8 @@ class App extends Component {
         <Route exact path='/createaccount' component={CreateAccount} />
         <Route exact path='/movie/:id' component={Movie} />
         <Route exact path='/watchlist' component={Watchlist} />
+
+        <Footer />
       </Router>
     );
   }

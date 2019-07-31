@@ -3,9 +3,6 @@ import { withRouter } from 'react-router-dom';
 import Search from './Search';
 import MovieMain from './MovieMain';
 import axios from 'axios';
-require('dotenv').config();
-
-// const API_KEY = '0c95577b9c6f99149dcce7a8abb721b4';
 
 class Main extends Component {
   constructor(props) {
