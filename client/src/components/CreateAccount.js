@@ -87,83 +87,94 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div>
-        <div className='title' />
+      <div className='createaccount-main'>
         <div className='container'>
-          <div className='create'>
-            <form className='card' onSubmit={this.onSubmit}>
-              <div className='form-group formName'>
-                <label htmlFor='exampleInputName1'>Name</label>
-                <input
-                  type='name'
-                  onChange={this.onChangeFirstName}
-                  className='form-control'
-                  id='exampleInputName1'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter first name'
-                  required
-                />
-                <input
-                  type='name'
-                  onChange={this.onChangeLastName}
-                  className='form-control'
-                  id='exampleInputName2'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter last name'
-                  required
-                />
+          <div className='row'>
+            <div className='col-sm-9 col-md-7 col-lg-5 mx-auto'>
+              <div className='card card-signin my-5'>
+                <div className='card-body'>
+                  <h5 className='card-title text-center'>Sign In</h5>
+                  <form className='form-signin' onSubmit={this.onSubmit}>
+                    <div className='form-label-group'>
+                      <input
+                        type='name'
+                        id='inputFirst'
+                        onChange={this.onChangeFirstName}
+                        className='form-control'
+                        placeholder='First Name'
+                        required
+                      />
+                      <label htmlFor='inputFirst'>First Name</label>
+                    </div>
+
+                    <div className='form-label-group'>
+                      <input
+                        type='name'
+                        id='inputLast'
+                        onChange={this.onChangeLastName}
+                        className='form-control'
+                        placeholder='Last Name'
+                        required
+                      />
+                      <label htmlFor='inputLast'>Last Name</label>
+                    </div>
+
+                    <div className='form-label-group'>
+                      <input
+                        type='email'
+                        id='inputEmail'
+                        onChange={this.onChangeEmail}
+                        className={`form-control ${
+                          this.state.alreadyPresent ? 'redBorder' : ''
+                        }`}
+                        placeholder='Email'
+                        required
+                      />
+                      <label htmlFor='inputEmail'>Email address</label>
+                      {this.state.alreadyPresent ? (
+                        <small className='notFoundError'>
+                          Email already in use
+                        </small>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                    <div className='form-label-group'>
+                      <input
+                        type='password'
+                        id='inputPass'
+                        onChange={this.onChangePassword}
+                        className='form-control'
+                        placeholder='Password'
+                        required
+                      />
+                      <label htmlFor='inputPass'>Password</label>
+                    </div>
+
+                    <div className='form-label-group'>
+                      <input
+                        type='phone'
+                        id='inputPhone'
+                        onChange={this.onChangePhone}
+                        className='form-control'
+                        placeholder='Phone'
+                        required
+                      />
+                      <label htmlFor='inputPhone'>Phone</label>
+                    </div>
+                    <button
+                      className='btn btn-lg btn-primary btn-block text-uppercase'
+                      type='submit'
+                    >
+                      Create Account
+                    </button>
+                  </form>
+
+                  <div className='createAccountLink'>
+                    <Link to='/login'>Already Have an Account?</Link>
+                  </div>
+                </div>
               </div>
-              <div className='form-group formEmail'>
-                <label htmlFor='exampleInputEmail1'>Email address</label>
-                <input
-                  type='email'
-                  onChange={this.onChangeEmail}
-                  className={`form-control ${
-                    this.state.alreadyPresent ? 'redBorder' : ''
-                  }`}
-                  id='exampleInputEmail1'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter email'
-                  required
-                />
-                {this.state.alreadyPresent ? (
-                  <small className='notFoundError'>Email already in use</small>
-                ) : (
-                  ''
-                )}
-                <small id='emailHelp' className='form-text text-muted'>
-                  We'll never share your email with anyone else.
-                </small>
-              </div>
-              <div className='form-group formPassword'>
-                <label htmlFor='exampleInputPassword1'>Password</label>
-                <input
-                  type='password'
-                  onChange={this.onChangePassword}
-                  className='form-control'
-                  id='exampleInputPassword1'
-                  placeholder='Password'
-                  required
-                />
-              </div>
-              <div className='form-group formPhone'>
-                <label htmlFor='phone'>Phone</label>
-                <input
-                  type='phone'
-                  className='form-control'
-                  onChange={this.onChangePhone}
-                  id='phone'
-                  aria-describedby='emailHelp'
-                  placeholder='Enter your phone number'
-                  required
-                />
-              </div>
-              <button type='submit' className='loginButton btn-primary'>
-                Submit
-              </button>
-            </form>
-            <div className='createAccountLink'>
-              <Link to='/login'>Already Have an Account?</Link>
             </div>
           </div>
         </div>

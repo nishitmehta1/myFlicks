@@ -10,6 +10,7 @@ import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Movie from './components/Movie';
 import Watchlist from './components/Watchlist';
+// require('dotenv');
 class App extends Component {
   constructor(props) {
     super(props);
