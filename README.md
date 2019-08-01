@@ -1,7 +1,7 @@
 # MyFlicks
 
 ## Try now:
-Link: https://blooming-beyond-83381.herokuapp.com/
+Link: https://my--flicks.herokuapp.com/
 
 ## Frameworks and Technologies Used:
 * MongoDb
