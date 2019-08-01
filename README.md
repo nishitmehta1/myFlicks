@@ -14,7 +14,7 @@ Link: https://my--flicks.herokuapp.com/
 * HTML, CSS
 
 ## Overview
-v1.0.0 of this app can keep a track of the movie that you've watched. The future versions will have features such as searching for anoother users, adding them as friends, mark movies that you've watched together and movie suggestions.
+v1.0.0 of this app can keep a track of the movie that you've watched. The future versions will have features such as searching for another users, adding them as friends, mark movies that you've watched together and movie suggestions.
 
 ## To run locally
 * Download/Pull the master branch
