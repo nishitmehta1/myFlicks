@@ -1,3 +1,10 @@
+.watchlist-main {
+  padding-bottom: 110px;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-end;
+}
+
 .watchlist {
   display: flex;
   justify-content: flex-start;
@@ -6,6 +13,15 @@
   width: 70vw;
   margin: auto;
   margin-top: 3vh;
+}
+
+.movie-container {
+}
+
+.movie {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
 }
 
 .watchlist .card {

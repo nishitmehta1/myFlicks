@@ -22,7 +22,7 @@
   list-style: none;
 }
 
-.movie-container .back-button button {
+.back-button button {
   color: rgb(143, 137, 137);
   background: transparent;
   font-size: 1.8em;
@@ -32,7 +32,7 @@
   padding: 0;
 }
 
-.movie-container .back-button button:hover {
+.back-button button:hover {
   /* border: 1px solid antiquewhite; */
   color: aliceblue;
 }

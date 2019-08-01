@@ -29,7 +29,6 @@ class Watchlist extends React.Component {
   };
 
   render() {
-    // console.log(this.state.moviesList);
     const watchList = this.state.moviesList.map(movie => (
       <div className='card' key={movie.id} style={{ width: '18rem' }}>
         <div className='image-container'>
@@ -56,14 +55,15 @@ class Watchlist extends React.Component {
     ));
 
     return (
-      <div>
-        <div className='back'>
+      <div className='watchlist-main container'>
+        <div className='back-button'>
           <button
+            className='btn'
             onClick={() => {
               this.props.history.push('/');
             }}
           >
-            Back
+            <i className='fa fa-arrow-circle-left' />
           </button>
         </div>
         <div className='watchlist'>{watchList}</div>
