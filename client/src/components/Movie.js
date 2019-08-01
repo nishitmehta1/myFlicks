@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import "./Movie.css";
 
+const API_KEY = process.env.API_KEY;
 class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -33,12 +34,12 @@ class Movie extends React.Component {
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }?api_key=${process.env.API_KEY}&language=en-US`
+        }?api_key=${API_KEY}&language=en-US`
       ),
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }/credits?api_key=${process.env.API_KEY}`
+        }/credits?api_key=${API_KEY}`
       )
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))

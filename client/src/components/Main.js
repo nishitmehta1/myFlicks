@@ -4,6 +4,8 @@ import Search from "./Search";
 import MovieMain from "./MovieMain";
 import axios from "axios";
 
+const API_KEY = process.env.API_KEY;
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -39,9 +41,7 @@ class Main extends Component {
       }
     });
     await fetch(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${
-        process.env.API_KEY
-      }`
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`
     )
       .then((response) => response.json())
       .then((data) =>
