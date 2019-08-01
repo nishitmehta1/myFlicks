@@ -7,7 +7,7 @@
 
 .watchlist {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   align-content: space-around;
   width: 70vw;

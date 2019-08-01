@@ -1,14 +1,14 @@
-@import './components/Search.css';
+@import "./components/Search.css";
 
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .app .movies-list {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   align-content: space-around;
 }
