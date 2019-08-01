@@ -4,7 +4,7 @@ import Search from "./Search";
 import MovieMain from "./MovieMain";
 import axios from "axios";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 class Main extends Component {
   constructor(props) {

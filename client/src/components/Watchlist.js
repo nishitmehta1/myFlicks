@@ -3,7 +3,6 @@ import { withRouter, Link } from "react-router-dom";
 import axios from "axios";
 import "./Watchlist.css";
 
-const API_KEY = process.env.API_KEY;
 class Watchlist extends React.Component {
   constructor(props) {
     super(props);
