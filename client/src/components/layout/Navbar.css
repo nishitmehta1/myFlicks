@@ -7,10 +7,11 @@
 }
 
 .brand {
-  color: white;
+  color: #408a56;
   font-size: 2.5em;
   text-align: center;
   /* margin-left: 24%; */
+  font-family: "Barriecito", cursive;
 }
 
 .brand-div {
