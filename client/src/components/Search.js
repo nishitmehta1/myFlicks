@@ -25,7 +25,7 @@ class Search extends Component {
       this.setState({ search: search }, async () => {
         await fetch(
           `https://api.themoviedb.org/3/search/movie?api_key=${
-            process.env.REACT_APP_TMDB_API_KEY
+            process.env.API_KEY
           }&language=en-US&query=${this.state.search}`
         )
           .then((response) => response.json())
@@ -49,7 +49,7 @@ class Search extends Component {
     } else {
       fetch(
         `https://api.themoviedb.org/3/search/movie?api_key=${
-          process.env.REACT_APP_TMDB_API_KEY
+          process.env.API_KEY
         }&language=en-US&query=${search_term}`
       )
         .then((response) => response.json())

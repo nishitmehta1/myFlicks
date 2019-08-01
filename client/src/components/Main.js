@@ -22,7 +22,6 @@ class Main extends Component {
   }
 
   componentDidMount = async () => {
-    console.log(process.env.REACT_APP_TMDB_API_KEY);
     // console.log('DID MOUNT');
     await axios.get("/users/", { withCredentials: true }).then((res) => {
       if (res.data.data === "LOGGEDIN") {
@@ -41,7 +40,7 @@ class Main extends Component {
     });
     await fetch(
       `https://api.themoviedb.org/3/trending/movie/week?api_key=${
-        process.env.REACT_APP_TMDB_API_KEY
+        process.env.API_KEY
       }`
     )
       .then((response) => response.json())
@@ -77,7 +76,7 @@ class Main extends Component {
 
   checkWatchListToState = async () => {
     await axios
-      .get("http://localhost:4000/users/getWatchList", {
+      .get("/users/getWatchList", {
         withCredentials: true
       })
       .then((res) => {
