@@ -7,19 +7,20 @@
 }
 
 .brand {
-  color: #408a56;
+  /* color: #408a56; */
   font-size: 2.5em;
   text-align: center;
   /* margin-left: 24%; */
-  font-family: "Barriecito", cursive;
+  color: white;
+  font-family: 'IBM Plex Serif', serif;
+}
+
+.brand:hover {
+  color: antiquewhite;
 }
 
 .brand-div {
   margin-left: 14%;
-}
-
-.brand:hover {
-  color: white;
 }
 
 .login:hover {
