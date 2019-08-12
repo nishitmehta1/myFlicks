@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./App.css";
+import React, { Component } from 'react';
+import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import axios from 'axios';
@@ -19,22 +19,22 @@ class App extends Component {
     super(props);
     this.state = {
       user: {},
-      firstname: "",
-      lastname: "",
+      firstname: '',
+      lastname: '',
       login: false
     };
   }
 
   componentWillMount = async () => {
     // console.log('DID MOUNT');
-    await axios.get("/users/", { withCredentials: true }).then((res) => {
-      if (res.data.data === "LOGGEDIN") {
+    await axios.get('/users/', { withCredentials: true }).then(res => {
+      if (res.data.data === 'LOGGEDIN') {
         this.setState({
           login: true,
           firstname: res.data.user.name.first,
           lastname: res.data.user.name.last
         });
-      } else if (res.data.data === "LOGIN") {
+      } else if (res.data.data === 'LOGIN') {
         this.setState({
           login: false
         });
@@ -71,14 +71,13 @@ class App extends Component {
         />
         <Route
           exact
-          path="/"
-          component={(props) => (
+          path='/'
+          component={props => (
             <Main user={this.state.user} login={this.state.login} />
           )}
         />
         <Route
           exact
-<<<<<<< HEAD
           path='/findUsers'
           component={props => (
             <SearchUser user={this.state.user} login={this.state.login} />
@@ -93,14 +92,6 @@ class App extends Component {
         <Route exact path='/movie/:id' component={Movie} />
         <Route exact path='/watchlist' component={Watchlist} />
         <Route exact path='/user/:id' component={UserPage} />
-=======
-          path="/login"
-          component={(props) => <Login setUser={this.setUser} />}
-        />
-        <Route exact path="/createaccount" component={CreateAccount} />
-        <Route exact path="/movie/:id" component={Movie} />
-        <Route exact path="/watchlist" component={Watchlist} />
->>>>>>> b96b77dc3e38b203d245f4aecf764648b21891de
 
         <Footer />
       </Router>
