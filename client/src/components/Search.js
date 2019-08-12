@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+const API_KEY = process.env.REACT_APP_API_KEY;
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -24,9 +25,9 @@ class Search extends Component {
     } else {
       this.setState({ search: search }, async () => {
         await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${
-            process.env.REACT_APP_TMDB_API_KEY
-          }&language=en-US&query=${this.state.search}`
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${
+            this.state.search
+          }`
         )
           .then(response => response.json())
           .then(data =>
@@ -48,9 +49,7 @@ class Search extends Component {
       });
     } else {
       fetch(
-        `https://api.themoviedb.org/3/search/movie?api_key=${
-          process.env.REACT_APP_TMDB_API_KEY
-        }&language=en-US&query=${search_term}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${search_term}`
       )
         .then(response => response.json())
         .then(data => this.setState({ info: data.results, search: '' }));

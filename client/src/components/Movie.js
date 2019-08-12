@@ -1,29 +1,30 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import './Movie.css';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import "./Movie.css";
 
+const API_KEY = process.env.REACT_APP_API_KEY;
 class Movie extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: '',
-      id: '',
-      release_date: '',
+      title: "",
+      id: "",
+      release_date: "",
       genres: [],
-      poster_path: '',
-      overview: '',
-      runtime: '',
+      poster_path: "",
+      overview: "",
+      runtime: "",
       adult: false,
       budget: 0,
       box_office_collection: 0,
-      status: '',
+      status: "",
       cast: [
-        { name: 'N/A' },
-        { name: 'N/A' },
-        { name: 'N/A' },
-        { name: 'N/A' },
-        { name: 'N/A' }
+        { name: "N/A" },
+        { name: "N/A" },
+        { name: "N/A" },
+        { name: "N/A" },
+        { name: "N/A" }
       ]
     };
   }
@@ -33,12 +34,12 @@ class Movie extends React.Component {
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }?api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`
+        }?api_key=${API_KEY}&language=en-US`
       ),
       fetch(
         `https://api.themoviedb.org/3/movie/${
           this.props.match.params.id
-        }/credits?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+        }/credits?api_key=${API_KEY}`
       )
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))
@@ -48,7 +49,7 @@ class Movie extends React.Component {
           genres: data1.genres,
           id: data1.id,
           overview: data1.overview,
-          poster_path: 'https://image.tmdb.org/t/p/w500' + data1.poster_path,
+          poster_path: "https://image.tmdb.org/t/p/w500" + data1.poster_path,
           title: data1.title,
           release_date: data1.release_date,
           runtime: data1.runtime,
@@ -60,12 +61,12 @@ class Movie extends React.Component {
       );
   };
 
-  movieBudget = budget => {
+  movieBudget = (budget) => {
     if (budget === 0) {
-      return 'N/A';
+      return "N/A";
     } else {
       let budgetInMillions = 0;
-      var result = '';
+      var result = "";
 
       budgetInMillions = Number.isInteger(budget / 10 ** 6)
         ? budget / 10 ** 6
@@ -75,111 +76,111 @@ class Movie extends React.Component {
 
       budgetInMillions = budgetInMillions.toString();
       // console.log(budgetInMillions);
-      result = budgetInMillions.toString() + ' million USD';
+      result = budgetInMillions.toString() + " million USD";
       // console.log(result);
 
       return result;
     }
   };
 
-  boxOffice = collection => {
+  boxOffice = (collection) => {
     if (collection === 0) {
-      return 'N/A';
+      return "N/A";
     } else {
       let collectionInMillions = 0;
-      var resultBoxOffice = '';
+      var resultBoxOffice = "";
 
       collectionInMillions = Number.isInteger(collection / 10 ** 6)
         ? collection / 10 ** 6
         : (collection / 10 ** 6).toFixed(2);
 
-      resultBoxOffice = collectionInMillions.toString() + ' million USD';
+      resultBoxOffice = collectionInMillions.toString() + " million USD";
       return resultBoxOffice;
     }
   };
 
   render() {
-    let display_genres = '';
+    let display_genres = "";
     for (var i = 0; i < this.state.genres.length; i++) {
       if (i === this.state.genres.length - 1) {
-        display_genres += this.state.genres[i].name + '.';
+        display_genres += this.state.genres[i].name + ".";
       } else {
-        display_genres += this.state.genres[i].name + ', ';
+        display_genres += this.state.genres[i].name + ", ";
       }
     }
 
-    let topCast = '';
+    let topCast = "";
     for (var j = 0; j < 5; j++) {
       if (j === 4) {
-        topCast += this.state.cast[j].name + '.';
+        topCast += this.state.cast[j].name + ".";
       } else {
-        topCast += this.state.cast[j].name + ', ';
+        topCast += this.state.cast[j].name + ", ";
       }
     }
 
     return (
-      <div className='movie-container container'>
-        <div className='back-button'>
+      <div className="movie-container container">
+        <div className="back-button">
           <button
-            className='btn'
+            className="btn"
             onClick={() => {
-              this.props.history.push('/');
+              this.props.history.push("/");
             }}
           >
-            <i className='fa fa-arrow-circle-left' />
+            <i className="fa fa-arrow-circle-left" />
           </button>
         </div>
-        <div className='movie'>
-          <div className='image-container'>
+        <div className="movie">
+          <div className="image-container">
             <img src={this.state.poster_path} alt={this.state.title} />
           </div>
 
-          <div className='overview-container'>
-            <h1 className='title'>{this.state.title}</h1>
+          <div className="overview-container">
+            <h1 className="title">{this.state.title}</h1>
             <p>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Release Date <br />
               </span>
               {this.state.release_date}
             </p>
             <p>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Budget <br />
               </span>
               {this.movieBudget(this.state.budget)}
             </p>
             <p>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Box Office <br />
               </span>
               {this.boxOffice(this.state.box_office_collection)}
             </p>
             <p>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Runtime <br />
               </span>
-              {this.state.runtime === 0 ? 'N/A' : this.state.runtime} min
+              {this.state.runtime === 0 ? "N/A" : this.state.runtime} min
             </p>
             <p>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Status <br />
               </span>
               {this.state.status}
             </p>
             <div>
-              <span className='subtitle'>
+              <span className="subtitle">
                 Cast <br />
               </span>
               <ul>{topCast}</ul>
             </div>
             <div>
-              <span className='subtitle'>
-                Genres <br />{' '}
+              <span className="subtitle">
+                Genres <br />{" "}
               </span>
               <ul>{display_genres}</ul>
             </div>
-            <div className='text-justify'>
-              <span className='subtitle'>
+            <div className="text-justify">
+              <span className="subtitle">
                 Overview <br />
               </span>
               {this.state.overview}
