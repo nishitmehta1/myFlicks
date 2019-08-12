@@ -1,21 +1,21 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
       info: [],
-      search: ""
+      search: ''
     };
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const search = e.target.value;
-    if (search === "") {
+    if (search === '') {
       this.setState(
         {
           info: [],
-          search: ""
+          search: ''
         },
         () => {
           this.props.change(this.state.info, this.state.search);
@@ -28,8 +28,8 @@ class Search extends Component {
             process.env.REACT_APP_TMDB_API_KEY
           }&language=en-US&query=${this.state.search}`
         )
-          .then((response) => response.json())
-          .then((data) =>
+          .then(response => response.json())
+          .then(data =>
             this.setState({ info: data.results }, () => {
               this.props.change(this.state.info, this.state.search);
             })
@@ -38,13 +38,13 @@ class Search extends Component {
     }
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
     const search_term = this.state.search;
-    if (search_term === "") {
+    if (search_term === '') {
       this.setState({
         info: this.props.trending,
-        search: ""
+        search: ''
       });
     } else {
       fetch(
@@ -52,19 +52,19 @@ class Search extends Component {
           process.env.REACT_APP_TMDB_API_KEY
         }&language=en-US&query=${search_term}`
       )
-        .then((response) => response.json())
-        .then((data) => this.setState({ info: data.results, search: "" }));
+        .then(response => response.json())
+        .then(data => this.setState({ info: data.results, search: '' }));
     }
   };
 
   render() {
     return (
-      <div className="search__container container">
+      <div className='search__container container'>
         <form onSubmit={this.handleSubmit}>
           <input
-            className="search__input"
-            type="text"
-            placeholder="Search for a movie"
+            className='search__input'
+            type='text'
+            placeholder='Search for a movie'
             value={this.state.search}
             onChange={this.handleChange}
           />

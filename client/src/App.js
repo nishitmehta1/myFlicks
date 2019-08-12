@@ -10,8 +10,9 @@ import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Movie from './components/Movie';
 import Watchlist from './components/Watchlist';
+import SearchUser from './components/SearchUser';
+import UserPage from './components/UserPage';
 import Footer from './components/layout/Footer';
-// require('dotenv');
 class App extends Component {
   constructor(props) {
     super(props);
@@ -78,12 +79,20 @@ class App extends Component {
         />
         <Route
           exact
+          path='/findUsers'
+          component={props => (
+            <SearchUser user={this.state.user} login={this.state.login} />
+          )}
+        />
+        <Route
+          exact
           path='/login'
           component={props => <Login setUser={this.setUser} />}
         />
         <Route exact path='/createaccount' component={CreateAccount} />
         <Route exact path='/movie/:id' component={Movie} />
         <Route exact path='/watchlist' component={Watchlist} />
+        <Route exact path='/user/:id' component={UserPage} />
 
         <Footer />
       </Router>

@@ -15,17 +15,22 @@ body,
   padding-bottom: 130px;
 }
 
+.searchUser-main {
+  min-height: 85vh;
+  padding-bottom: 100px;
+}
+
 .footer-main {
   margin-top: 4%;
   background: #9c202098;
   width: 100%;
-  height: 58px;
+  height: 50px;
   position: absolute;
   bottom: 0;
 }
 
 .footer-copyright {
-  font-size: 1.3em;
+  font-size: 1.2em;
 }
 
 .footer-copyright a {

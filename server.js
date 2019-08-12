@@ -94,6 +94,32 @@ userRoutes.route('/createuser').post((req, res) => {
   });
 });
 
+// Send all Users
+
+userRoutes.route('/getUserList').get((req, res) => {
+  User.find({}, (err, users) => {
+    let userMap = [];
+    users.forEach(user => {
+      if (user._id != req.session.userId) {
+        let { name, profilepic, _id } = user;
+        userMap.push({ name, profilepic, _id });
+      }
+    });
+    res.json({ data: userMap });
+  });
+});
+
+// Show User Profile
+
+userRoutes.route('/getUser/:id').get((req, res) => {
+  User.findById(req.params.id, (err, user) => {
+    let { name, profilepic, watchlist, friendlist, wishlist } = user;
+    res.json({
+      data: { name, profilepic, watchlist, friendlist, wishlist }
+    });
+  });
+});
+
 userRoutes.route('/deleteWatchList').post((req, res) => {
   let userId = req.session.userId;
   let movie = req.body;
