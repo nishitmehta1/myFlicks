@@ -3,20 +3,34 @@ import { Link } from 'react-router-dom';
 
 class Movie extends Component {
   render() {
-    const { id, src, title, release_date, login, inList } = this.props;
+    const {
+      id,
+      src,
+      title,
+      release_date,
+      login,
+      inList,
+      from,
+      image
+    } = this.props;
     const url = 'https://image.tmdb.org/t/p/w300';
 
     let img_src = '';
-    if (src === null) {
+    if (from === 'userpage') {
+      img_src = image;
+    } else if (src === null) {
       img_src = 'https://picsum.photos/id/1025/300/200';
     } else {
       img_src = url + src;
     }
 
     return (
-      <div className='card' style={{ width: '18rem' }}>
+      <div
+        className='card'
+        style={from === 'userpage' ? { width: '14rem' } : { width: '18rem' }}
+      >
         <div className='image-container'>
-          <Link to={`movie/${id}`}>
+          <Link to={`/movie/${id}`}>
             <img className='card-img-top movie-img' src={img_src} alt={title} />
           </Link>
         </div>
@@ -47,7 +61,7 @@ class Movie extends Component {
         )}
 
         <div className='card-body'>
-          <Link to={`movie/${id}`} className='a_card_title'>
+          <Link to={`/movie/${id}`} className='a_card_title'>
             <h5 className='card-title'>{title}</h5>
           </Link>
 
