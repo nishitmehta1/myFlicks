@@ -9,7 +9,8 @@ import Main from './components/Main';
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Movie from './components/Movie';
-import Watchlist from './components/Watchlist';
+import Watchlist from './components/watchlist/Watchlist';
+import Friendlist from './components/friendlist/Friendlist';
 import SearchUser from './components/SearchUser';
 import UserPage from './components/UserPage';
 import Footer from './components/layout/Footer';
@@ -45,7 +46,7 @@ class App extends Component {
   };
 
   setUser = (user, login) => {
-    console.log(user);
+    // console.log(user);
     this.setState({ user: user, login: login }, () => {
       this.setState({
         firstname: this.state.user.name.first,
@@ -80,7 +81,7 @@ class App extends Component {
         />
         <Route
           exact
-          path='/findUsers'
+          path='/findusers'
           component={props => (
             <SearchUser user={this.state.user} login={this.state.login} />
           )}
@@ -93,6 +94,7 @@ class App extends Component {
         <Route exact path='/createaccount' component={CreateAccount} />
         <Route exact path='/movie/:id' component={Movie} />
         <Route exact path='/watchlist' component={Watchlist} />
+        <Route exact path='/myfriends' component={Friendlist} />
         <Route
           exact
           path='/user/:id'

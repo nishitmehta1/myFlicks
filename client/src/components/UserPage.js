@@ -25,8 +25,6 @@ class UserPage extends Component {
     };
   }
 
-  // TODO: ADD MY FRIENDS PAGE FRONTEND
-
   componentDidMount() {
     this.setState({
       id: this.props.match.params.id
@@ -42,6 +40,13 @@ class UserPage extends Component {
   }
 
   checkFriendlistToState = async () => {
+    await axios.get('/users/', { withCredentials: true }).then(res => {
+      console.log(res.data.data);
+      if (res.data.data === 'LOGIN') {
+        this.props.history.push('/login');
+      }
+    });
+
     await axios
       .get('/users/getFriendList', {
         withCredentials: true

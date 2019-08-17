@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Users from './Users';
 import axios from 'axios';
 
@@ -13,8 +14,15 @@ class SearchUser extends Component {
   }
 
   componentDidMount() {
+    axios.get('/users/', { withCredentials: true }).then(res => {
+      console.log(res.data.data);
+      if (res.data.data === 'LOGIN') {
+        this.props.history.push('/login');
+      }
+    });
+
     axios
-      .get('http://localhost:4000/users/getUserList', {
+      .get('/users/getUserList', {
         withCredentials: true
       })
       .then(res => {
@@ -103,4 +111,4 @@ class SearchUser extends Component {
   }
 }
 
-export default SearchUser;
+export default withRouter(SearchUser);

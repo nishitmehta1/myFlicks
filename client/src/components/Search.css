@@ -1,10 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
 
 /* Base styling */
+.search-bar {
+  width: 50%;
+  margin-left: 7em;
+}
 
 .search__container form {
   margin: auto;
-  width: 50%;
+  /* width: 50%; */
   margin-bottom: 3.2em;
 }
 

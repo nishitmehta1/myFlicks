@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import Search from './Search';
 import MovieMain from './MovieMain';
+import FinduserButton from './finduserbutton/FinduserButton';
 import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
@@ -90,8 +91,17 @@ class Main extends Component {
     const { watchlist } = this.state;
     return (
       <div className='app'>
-        <div className='search-bar'>
-          <Search change={this.handleChange} />
+        <div className='search-bar-main container'>
+          <div className='finduser-btn-main'>
+            {this.props.login ? (
+              <FinduserButton login={this.props.login} />
+            ) : (
+              ''
+            )}
+          </div>
+          <div className='search-bar'>
+            <Search change={this.handleChange} />
+          </div>
         </div>
         <div className='movies-main'>
           {this.state.notFound ? (

@@ -65,7 +65,7 @@ class Navbar extends Component {
                     <Link to='/watchlist' className='dropdown-item' href='#'>
                       My Watchlist
                     </Link>
-                    <Link to='/' className='dropdown-item disabled' href='#'>
+                    <Link to='/myfriends' className='dropdown-item' href='#'>
                       My Friends
                     </Link>
                     <div className='dropdown-divider' />
