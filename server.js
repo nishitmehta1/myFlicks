@@ -169,6 +169,15 @@ userRoutes.route('/addToWatchList').post((req, res) => {
   }
 });
 
+userRoutes.route('/getFriendList').get((req, res) => {
+  let userId = req.session.userId;
+  if (userId) {
+    res.status(200).json({ data: req.session.user.friendlist });
+  } else {
+    console.log('No Session active');
+  }
+});
+
 userRoutes.route('/getWatchList').get((req, res) => {
   let userId = req.session.userId;
   if (userId) {
@@ -178,6 +187,53 @@ userRoutes.route('/getWatchList').get((req, res) => {
   } else {
     console.log('No Session active');
   }
+});
+
+userRoutes.route('/addToFriendList').post((req, res) => {
+  let userId = req.session.userId;
+  if (userId) {
+    let friend = req.body;
+    User.findById(userId, (err, user) => {
+      if (
+        !user.friendlist.some(function(id) {
+          return id.id === friend.id;
+        })
+      ) {
+        user.friendlist.push(friend);
+        user.save();
+        req.session.user = user;
+        console.log('ADDED Friend');
+        res.status(200).json({ data: 'Friend Added' });
+      } else {
+        req.session.user = user;
+        res.json({
+          data: 'Friend Already Present'
+        });
+      }
+    });
+  } else {
+    console.log('No Session active');
+  }
+});
+
+userRoutes.route('/deleteFromFriendList').post((req, res) => {
+  let userId = req.session.userId;
+  let friend = req.body;
+  User.findById(userId, (err, user) => {
+    // console.log(userId, user);
+    let index = user.friendlist.findIndex(x => x.id === friend.id);
+    if (index === -1) {
+      res.json({ data: 'NOT IN WATCHLIST' });
+    } else {
+      user.friendlist.splice(index, 1);
+      user.save();
+      req.session.user = user;
+      console.log('DELETED FRIEND');
+      res.json({
+        data: 'DELETED Friend'
+      });
+    }
+  });
 });
 
 userRoutes.route('/logout').get((req, res) => {

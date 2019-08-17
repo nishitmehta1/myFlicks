@@ -131,3 +131,23 @@ body {
   margin: 1em;
   font-size: 0.9em;
 }
+
+.profile-watchlist-content .watchlist_icon {
+  position: absolute;
+  top: 5%;
+  left: 214px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 0.9em;
+}
+
+.lightRed {
+  background-color: rgb(124, 51, 51);
+}
+
+.lightBlue {
+  background-color: rgb(42, 104, 129);
+}

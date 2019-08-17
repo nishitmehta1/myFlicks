@@ -21,7 +21,8 @@ class App extends Component {
       user: {},
       firstname: '',
       lastname: '',
-      login: false
+      login: false,
+      watchlist: []
     };
   }
 
@@ -32,7 +33,8 @@ class App extends Component {
         this.setState({
           login: true,
           firstname: res.data.user.name.first,
-          lastname: res.data.user.name.last
+          lastname: res.data.user.name.last,
+          watchlist: res.data.user.watchlist
         });
       } else if (res.data.data === 'LOGIN') {
         this.setState({
@@ -91,7 +93,17 @@ class App extends Component {
         <Route exact path='/createaccount' component={CreateAccount} />
         <Route exact path='/movie/:id' component={Movie} />
         <Route exact path='/watchlist' component={Watchlist} />
-        <Route exact path='/user/:id' component={UserPage} />
+        <Route
+          exact
+          path='/user/:id'
+          component={props => (
+            <UserPage
+              {...props}
+              watchlist={this.state.watchlist}
+              login={this.state.login}
+            />
+          )}
+        />
 
         <Footer />
       </Router>

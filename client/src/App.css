@@ -41,7 +41,7 @@
   border: red 2px solid !important;
 }
 
-.watchlist_icon {
+.movies-list .watchlist_icon {
   position: absolute;
   top: 5%;
   left: 273px;

@@ -66,11 +66,11 @@ class SearchUser extends Component {
   // };
 
   render() {
-    console.log(this.state.users);
     let users = '';
     if (this.state.users) {
-      users = this.state.users.map(user => (
+      users = this.state.users.map((user, i) => (
         <Users
+          key={i}
           login={this.props.login}
           first_name={user.name.first}
           last_name={user.name.last}
@@ -85,7 +85,7 @@ class SearchUser extends Component {
       <div className='app'>
         <div className='search-bar'>
           <div className='search__container container'>
-            <form onSubmit={this.handleSubmit}>
+            {/* <form onSubmit={this.handleSubmit}>
               <input
                 className='search__input'
                 type='text'
@@ -93,8 +93,8 @@ class SearchUser extends Component {
                 value={this.state.search}
                 onChange={this.handleChange}
               />
-              {/* <button onClick={this.handleSubmit}>search</button> */}
-            </form>
+              <button onClick={this.handleSubmit}>search</button>
+            </form> */}
           </div>
         </div>
         <div className='users-main'>{users}</div>
