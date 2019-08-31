@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import './Movie.css';
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 class Movie extends React.Component {
   constructor(props) {
     super(props);
@@ -32,14 +32,10 @@ class Movie extends React.Component {
   componentDidMount = async () => {
     await Promise.all([
       fetch(
-        `https://api.themoviedb.org/3/movie/${
-          this.props.match.params.id
-        }?api_key=${API_KEY}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${this.props.match.params.id}?api_key=${API_KEY}&language=en-US`
       ),
       fetch(
-        `https://api.themoviedb.org/3/movie/${
-          this.props.match.params.id
-        }/credits?api_key=${API_KEY}`
+        `https://api.themoviedb.org/3/movie/${this.props.match.params.id}/credits?api_key=${API_KEY}`
       )
     ])
       .then(([res1, res2]) => Promise.all([res1.json(), res2.json()]))

@@ -5,7 +5,7 @@ import MovieMain from './MovieMain';
 import FinduserButton from './finduserbutton/FinduserButton';
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 class Main extends Component {
   constructor(props) {

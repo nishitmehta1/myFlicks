@@ -25,9 +25,7 @@ class Search extends Component {
     } else {
       this.setState({ search: search }, async () => {
         await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${
-            this.state.search
-          }`
+          `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.search}`
         )
           .then(response => response.json())
           .then(data =>
