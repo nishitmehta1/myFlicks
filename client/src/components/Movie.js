@@ -118,17 +118,20 @@ class Movie extends React.Component {
       }
     }
 
+    // console.log(this.props.history.goBack);
+
     return (
       <div className='movie-container container'>
         <div className='back-button'>
           <button
             className='btn'
             onClick={() => {
-              this.props.history.push('/');
+              this.props.history.goBack();
             }}
           >
             <i className='fa fa-arrow-circle-left' />
           </button>
+          <h2 className='title'>{this.state.title}</h2>
         </div>
         <div className='movie'>
           <div className='image-container'>
@@ -136,7 +139,6 @@ class Movie extends React.Component {
           </div>
 
           <div className='overview-container'>
-            <h1 className='title'>{this.state.title}</h1>
             <p>
               <span className='subtitle'>
                 Release Date <br />

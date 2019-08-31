@@ -14,10 +14,6 @@ class Navbar extends Component {
     };
   }
 
-  onLoginClick = () => {
-    this.props.history.push('/login');
-  };
-
   onLogoutClick = () => {
     axios.get('/users/logout', { withCredentials: true }).then(res => {
       if (res.data.data === 'LOGIN') {
@@ -32,11 +28,37 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav className='navbar navbar-main navbar-expand-lg'>
-        <div className='nav-container'>
+      <nav
+        className='navbar navbar-main navbar-expand-lg'
+        style={
+          this.props.history.location.pathname === '/login' ||
+          this.props.history.location.pathname === '/createAccount'
+            ? { background: 'rgb(165, 45, 45)' }
+            : {}
+        }
+      >
+        <div className='nav-container container'>
           <div className='brand-div'>
-            <Link to='/' className='navbar-brand brand mr-auto' href='#'>
-              My Flicks
+            <Link
+              to='/'
+              className='navbar-brand brand mr-auto logo'
+              href='#'
+              style={
+                this.props.history.location.pathname === '/login' ||
+                this.props.history.location.pathname === '/createAccount'
+                  ? { color: 'white' }
+                  : {}
+              }
+            >
+              <span class='w0'>M</span>
+              <span class='w1'>y</span>
+              <span class='w2'> </span>
+              <span class='w3'>F</span>
+              <span class='w4'>l</span>
+              <span class='w5'>i</span>
+              <span class='w6'>c</span>
+              <span class='w7'>k</span>
+              <span class='w8'>s</span>
             </Link>
           </div>
           <div
@@ -87,13 +109,19 @@ class Navbar extends Component {
               </ul>
             ) : (
               <div>
-                <button
-                  style={{ width: '10rem' }}
-                  className='btn btn-lg login'
+                <a
+                  className='login'
+                  href='/login'
                   onClick={this.onLoginClick}
+                  style={
+                    this.props.history.location.pathname === '/login' ||
+                    this.props.history.location.pathname === '/createAccount'
+                      ? { color: 'white', width: '10rem' }
+                      : {}
+                  }
                 >
                   Login
-                </button>
+                </a>
               </div>
             )}
           </div>

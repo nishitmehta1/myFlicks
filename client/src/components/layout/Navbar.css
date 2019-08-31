@@ -1,9 +1,11 @@
 .navbar-main {
-  background-color: #9c202098;
-  padding: 0.1em;
+  background-color: rgb(212, 207, 207);
+  padding: 0.6em;
   max-height: 10vh;
-  margin-bottom: 5vh;
   width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }
 
 .brand {
@@ -11,23 +13,28 @@
   font-size: 2.5em;
   text-align: center;
   /* margin-left: 24%; */
-  color: white;
   font-family: 'IBM Plex Serif', serif;
 }
 
 .brand:hover {
-  color: antiquewhite;
+  color: rgb(165, 45, 45);
 }
 
-.brand-div {
-  margin-left: 14%;
+.logo {
+  color: rgb(165, 45, 45);
+  font-weight: bolder;
+}
+
+.login {
+  color: rgb(165, 45, 45);
+  font-weight: bold;
+  font-size: 1.4em;
 }
 
 .login:hover {
-  color: antiquewhite;
+  color: rgb(165, 45, 45);
   background-color: none;
-  border: 1px solid #faebd7;
-  /* box-shadow: 1px 1px 8px -3px #faebd7 inset; */
+  text-decoration: none;
 }
 
 .nav-container {
@@ -35,13 +42,13 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  box-shadow: 0px 0.4px 0px #cacaca;
+  /* box-shadow: 0px 0.4px 0px #cacaca; */
   /* box-shadow: 5px 13px 11px -17px #cacaca; */
 }
 
 .dropdown-main {
-  max-width: 9em;
-  margin-right: 18%;
+  max-width: 11em;
+  /* margin-right: 12%; */
 }
 
 .dropdown-menu {
@@ -49,10 +56,11 @@
 }
 
 .dropdown-toggle {
-  color: white;
+  color: rgb(165, 45, 45);
   font-size: 1.4em;
+  font-weight: bold;
 }
 
 .dropdown-toggle:hover {
-  color: antiquewhite;
+  color: rgb(165, 45, 45);
 }

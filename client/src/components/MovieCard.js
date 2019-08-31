@@ -26,13 +26,16 @@ class Movie extends Component {
 
     return (
       <div
-        className='card'
-        style={from === 'userpage' ? { width: '14rem' } : { width: '18rem' }}
+        className='card movie-card'
+        style={from === 'userpage' ? { width: '14rem' } : { width: '21rem' }}
       >
         <div className='image-container'>
-          <Link to={`/movie/${id}`}>
+          <Link to={`/movie/${id}`} className='link'>
             <img className='card-img-top movie-img' src={img_src} alt={title} />
           </Link>
+          <div className='text'>
+            <span className='movie-card-title'>{title}</span>
+          </div>
         </div>
         {login ? (
           <button
@@ -60,7 +63,7 @@ class Movie extends Component {
           ''
         )}
 
-        <div className='card-body'>
+        {/* <div className='card-body'>
           <Link to={`/movie/${id}`} className='a_card_title'>
             <h5 className='card-title'>{title}</h5>
           </Link>
@@ -69,7 +72,7 @@ class Movie extends Component {
             <span>Release Date: </span>
             {release_date}
           </p>
-        </div>
+        </div> */}
       </div>
     );
   }
