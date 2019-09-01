@@ -26,13 +26,16 @@
 }
 
 .login {
-  color: rgb(165, 45, 45);
+  color: white;
   font-weight: bold;
   font-size: 1.4em;
+  background-color: #a52d2d;
+  border: 1px solid #a52d2d;
+  padding: 0.3em 0.8em;
 }
 
 .login:hover {
-  color: rgb(165, 45, 45);
+  color: white;
   background-color: none;
   text-decoration: none;
 }

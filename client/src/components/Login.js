@@ -22,7 +22,7 @@ class LogIn extends Component {
     axios.get('/users/', { withCredentials: true }).then(res => {
       console.log(res.data.data);
       if (res.data.data === 'LOGGEDIN') {
-        this.props.history.push('/');
+        this.props.history.goBack();
       } else if (res.data.data === 'LOGIN') {
         this.props.history.push('/login');
       }
@@ -75,7 +75,7 @@ class LogIn extends Component {
             this.props.setUser(this.state.user, true);
             console.log(this.state.user);
           });
-          this.props.history.push('/');
+          this.props.history.goBack();
         }
       });
   };

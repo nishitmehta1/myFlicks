@@ -50,15 +50,15 @@ class Navbar extends Component {
                   : {}
               }
             >
-              <span class='w0'>M</span>
-              <span class='w1'>y</span>
-              <span class='w2'> </span>
-              <span class='w3'>F</span>
-              <span class='w4'>l</span>
-              <span class='w5'>i</span>
-              <span class='w6'>c</span>
-              <span class='w7'>k</span>
-              <span class='w8'>s</span>
+              <span className='w0'>M</span>
+              <span className='w1'>y</span>
+              <span className='w2'> </span>
+              <span className='w3'>F</span>
+              <span className='w4'>l</span>
+              <span className='w5'>i</span>
+              <span className='w6'>c</span>
+              <span className='w7'>k</span>
+              <span className='w8'>s</span>
             </Link>
           </div>
           <div

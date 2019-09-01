@@ -4,7 +4,6 @@
 .search-bar {
   caret-color: #a52d2d;
   width: 50%;
-  margin-left: 7em;
 }
 
 .search__container form {
@@ -48,4 +47,22 @@
   border-bottom: 1px solid #575756;
   border-radius: 0;
   background-position: 100% center;
+}
+
+.search_main {
+  position: relative;
+}
+
+.findusers {
+  color: #a52d2d;
+  position: absolute;
+  top: 23%;
+  right: 9%;
+  border-bottom: 1px solid #a52d2d;
+  padding: 0px 0.1em;
+}
+
+.findusers:hover {
+  color: #a52d2d;
+  text-decoration: none;
 }

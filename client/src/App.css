@@ -92,10 +92,6 @@ body {
   color: rgb(134, 240, 222);
 }
 
-.fa-user-plus {
-  color: rgb(73, 209, 96);
-}
-
 .movies-list,
 .users-main {
   width: 72vw;
@@ -140,18 +136,23 @@ body {
 
 .text {
   width: 17em;
-  transition: 0.5s ease;
-  opacity: 0;
+  /* transition: 0.5s ease;
+  opacity: 0; */
   position: absolute;
   top: 72%;
   left: 5%;
+}
+
+.hover {
+  transition: 0.5s ease;
+  opacity: 0;
 }
 
 .image-container:hover .movie-img {
   opacity: 0.3;
 }
 
-.image-container:hover .text {
+.image-container:hover .hover {
   opacity: 1;
 }
 
@@ -160,4 +161,108 @@ body {
   font-size: 1.3em;
   font-weight: bolder;
   /* padding: 16px 32px; */
+}
+
+.addList-btn {
+  background: none;
+  border: none;
+}
+
+.movie-card .modal-content {
+  background: #a52d2d;
+}
+
+.movie-card .modal-header {
+  border: none;
+  padding-bottom: 0.7rem;
+}
+
+.movie-card .modal-body {
+  padding: 1em;
+}
+
+.movie-card .modal-header .modal-title {
+  padding-left: 0.6em;
+}
+
+/* RATING */
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) > input {
+  position: absolute;
+  top: -9999px;
+}
+.rate:not(:checked) > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.for5Star {
+  display: none;
+}
+
+.for4Star {
+  display: none;
+}
+
+.for3Star {
+  display: none;
+}
+
+.for2Star {
+  display: none;
+}
+
+.for1Star {
+  display: none;
+}
+
+#star5:hover ~ .for5Star,
+#star4:hover ~ .for4Star,
+#star3:hover ~ .for3Star,
+#star2:hover ~ .for2Star,
+#star1:hover ~ .for1Star {
+  display: block;
+}
+
+.rate-main {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+}
+
+.for1Star,
+.for2Star,
+.for3Star,
+.for4Star,
+.for5Star {
+  position: absolute;
+  top: 0%;
+  padding-left: 0.21rem;
 }

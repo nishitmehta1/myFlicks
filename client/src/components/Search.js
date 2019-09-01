@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 class Search extends Component {
@@ -58,13 +59,23 @@ class Search extends Component {
     return (
       <div className='search__container'>
         <form onSubmit={this.handleSubmit}>
-          <input
-            className='search__input'
-            type='text'
-            placeholder='Search for a movie'
-            value={this.state.search}
-            onChange={this.handleChange}
-          />
+          <div className='search_main'>
+            <input
+              className='search__input'
+              type='text'
+              placeholder='Search for a movie'
+              maxlength='25'
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            {this.props.login ? (
+              <Link to='/findUsers' className='findusers' href='#'>
+                Find Users
+              </Link>
+            ) : (
+              ''
+            )}
+          </div>
           {/* <button onClick={this.handleSubmit}>search</button> */}
         </form>
       </div>

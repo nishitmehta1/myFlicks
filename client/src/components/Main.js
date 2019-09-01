@@ -6,7 +6,6 @@ import FinduserButton from './finduserbutton/FinduserButton';
 import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,6 @@ class Main extends Component {
   }
 
   componentDidMount = async () => {
-    // console.log('DID MOUNT');
     await axios.get('/users/', { withCredentials: true }).then(res => {
       if (res.data.data === 'LOGGEDIN') {
         this.setState({
@@ -92,15 +90,8 @@ class Main extends Component {
     return (
       <div className='app'>
         <div className='search-bar-main container'>
-          <div className='finduser-btn-main'>
-            {this.props.login ? (
-              <FinduserButton login={this.props.login} />
-            ) : (
-              ''
-            )}
-          </div>
           <div className='search-bar'>
-            <Search change={this.handleChange} />
+            <Search login={this.props.login} change={this.handleChange} />
           </div>
         </div>
         <div className='movies-main'>
