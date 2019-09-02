@@ -8,6 +8,7 @@ class Movie extends Component {
     super(props);
     this.state = {
       ratingValue: ' ',
+      ratingValue2: ' ',
       initialRating: 0
     };
   }
@@ -29,31 +30,59 @@ class Movie extends Component {
     }
   }
 
-  onHoverRating = value => {
-    if (value === 1) {
-      this.setState({
-        ratingValue: 'Horrible'
-      });
-    } else if (value === 2) {
-      this.setState({
-        ratingValue: 'Poor'
-      });
-    } else if (value === 3) {
-      this.setState({
-        ratingValue: 'Average'
-      });
-    } else if (value === 4) {
-      this.setState({
-        ratingValue: 'Liked it'
-      });
-    } else if (value === 5) {
-      this.setState({
-        ratingValue: 'Loved it'
-      });
+  onHoverRating = (value, i = 1) => {
+    if (i === 2) {
+      if (value === 1) {
+        this.setState({
+          ratingValue2: 'Horrible'
+        });
+      } else if (value === 2) {
+        this.setState({
+          ratingValue2: 'Poor'
+        });
+      } else if (value === 3) {
+        this.setState({
+          ratingValue2: 'Average'
+        });
+      } else if (value === 4) {
+        this.setState({
+          ratingValue2: 'Liked it'
+        });
+      } else if (value === 5) {
+        this.setState({
+          ratingValue2: 'Loved it'
+        });
+      } else {
+        this.setState({
+          ratingValue2: ' '
+        });
+      }
     } else {
-      this.setState({
-        ratingValue: ' '
-      });
+      if (value === 1) {
+        this.setState({
+          ratingValue: 'Horrible'
+        });
+      } else if (value === 2) {
+        this.setState({
+          ratingValue: 'Poor'
+        });
+      } else if (value === 3) {
+        this.setState({
+          ratingValue: 'Average'
+        });
+      } else if (value === 4) {
+        this.setState({
+          ratingValue: 'Liked it'
+        });
+      } else if (value === 5) {
+        this.setState({
+          ratingValue: 'Loved it'
+        });
+      } else {
+        this.setState({
+          ratingValue: ' '
+        });
+      }
     }
   };
 
@@ -105,6 +134,7 @@ class Movie extends Component {
               <div className='user-rating'>
                 <Rating
                   emptySymbol='fa fa-star-o fa-2x'
+                  onHover={rate => this.onHoverRating(rate, 2)}
                   fullSymbol='fa fa-star fa-2x'
                   initialRating={this.state.initialRating}
                   onClick={value =>
@@ -119,6 +149,9 @@ class Movie extends Component {
                   }
                 />
               </div>
+              <span class='label label-default' id='label-onrate'>
+                {this.state.ratingValue2}
+              </span>
             </div>
           ) : (
             ''
@@ -129,7 +162,10 @@ class Movie extends Component {
           {login ? (
             <button
               className='watchlist_icon'
-              onClick={() =>
+              onClick={() => {
+                this.setState({
+                  initialRating: 0
+                });
                 this.props.toggleWatchList(
                   id,
                   title,
@@ -137,8 +173,8 @@ class Movie extends Component {
                   release_date,
                   inList,
                   this.state.initialRating
-                )
-              }
+                );
+              }}
               data-toggle='tooltip'
               data-placement='top'
               title={`${inList ? 'Remove from' : 'Add to'} your watchlist`}
