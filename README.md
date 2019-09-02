@@ -3,6 +3,9 @@
 ## Try now:
 Link: https://my--flicks.herokuapp.com/
 
+## v1.0.2:
+Now you can rate all the movies that you watch. 
+
 ## v1.0.1:
 Now search for your friends, follow them and see what movies they've watched. 
 
