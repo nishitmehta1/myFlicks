@@ -64,7 +64,7 @@ class Search extends Component {
               className='search__input'
               type='text'
               placeholder='Search for a movie'
-              maxlength='25'
+              maxLength='25'
               value={this.state.search}
               onChange={this.handleChange}
             />

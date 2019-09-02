@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const session = require('express-session');
 const express = require('express');
 const app = express();
@@ -166,6 +166,44 @@ userRoutes.route('/addToWatchList').post((req, res) => {
     });
   } else {
     res.json({ data: 'LOGIN FIRST' });
+  }
+});
+
+mongoose.set('useFindAndModify', false);
+userRoutes.route('/addRating').put((req, res) => {
+  let userId = req.session.userId;
+  let movie = req.body;
+  console.log(movie);
+  if (userId) {
+    User.findOneAndUpdate(
+      { _id: userId, 'watchlist.id': movie.id },
+      { $set: { 'watchlist.$.rating': movie.rating } },
+      { new: true },
+      function(error, success) {
+        if (error) throw error;
+        req.session.user = success;
+        // console.log(success.watchlist);
+        res.json({
+          data: 'Rating Updated',
+          user: success
+        });
+      }
+    );
+  } else {
+    console.log('Login Please');
+  }
+});
+
+userRoutes.route('/getRating').post((req, res) => {
+  let userId = req.session.userId;
+  if (userId) {
+    let movie = req.body;
+    res.json({
+      data: req.session.user.watchlist.find(id => id.id === movie.id.toString())
+        .rating
+    });
+  } else {
+    console.log('Login Please');
   }
 });
 

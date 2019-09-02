@@ -3,12 +3,13 @@ import MovieCard from './MovieCard';
 import axios from 'axios';
 
 class MovieMain extends Component {
-  toggleWatchList = async (id, title, image, release_date, inList) => {
+  toggleWatchList = async (id, title, image, release_date, inList, rating) => {
     let movie = {
       id: id.toString(),
       title: title,
       image: image,
-      release_date: release_date.toString()
+      release_date: release_date.toString(),
+      rating: rating
     };
 
     if (!inList) {
@@ -17,7 +18,7 @@ class MovieMain extends Component {
           withCredentials: true
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
         });
     } else {
       await axios
@@ -25,7 +26,7 @@ class MovieMain extends Component {
           withCredentials: true
         })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
         });
     }
     this.props.checkWatchListToState(movie);
@@ -44,7 +45,6 @@ class MovieMain extends Component {
                 title={movie.title}
                 release_date={movie.release_date}
                 toggleWatchList={this.toggleWatchList}
-                watchlist={this.props.watchlist}
                 inList={this.props.watchlist.some(function(id) {
                   return id.id === movie.id.toString();
                 })}

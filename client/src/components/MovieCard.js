@@ -1,7 +1,71 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Rating from 'react-rating';
+import axios from 'axios';
 
 class Movie extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ratingValue: ' ',
+      initialRating: 0
+    };
+  }
+
+  componentDidMount() {
+    if (this.props.inList) {
+      console.log('Check');
+      const movie = {
+        id: this.props.id
+      };
+      axios
+        .post('/users/getRating', movie, { withCredentials: true })
+        .then(res => {
+          this.setState({
+            initialRating: res.data.data
+          });
+          // console.log(res.data);
+        });
+    }
+  }
+
+  onHoverRating = value => {
+    if (value === 1) {
+      this.setState({
+        ratingValue: 'Horrible'
+      });
+    } else if (value === 2) {
+      this.setState({
+        ratingValue: 'Poor'
+      });
+    } else if (value === 3) {
+      this.setState({
+        ratingValue: 'Average'
+      });
+    } else if (value === 4) {
+      this.setState({
+        ratingValue: 'Liked it'
+      });
+    } else if (value === 5) {
+      this.setState({
+        ratingValue: 'Loved it'
+      });
+    } else {
+      this.setState({
+        ratingValue: ' '
+      });
+    }
+  };
+
+  updateRating = (id, value) => {
+    // console.log(id, value);
+    const movie = {
+      id: id.toString(),
+      rating: value
+    };
+    axios.put('/users/addRating', movie, { withCredentials: true });
+  };
+
   render() {
     const {
       id,
@@ -14,7 +78,6 @@ class Movie extends Component {
       image
     } = this.props;
     const url = 'https://image.tmdb.org/t/p/w300';
-
     let img_src = '';
     if (from === 'userpage') {
       img_src = image;
@@ -23,7 +86,6 @@ class Movie extends Component {
     } else {
       img_src = url + src;
     }
-
     return (
       <div
         className='card movie-card'
@@ -31,8 +93,36 @@ class Movie extends Component {
       >
         <div className='image-container'>
           <Link to={`/movie/${id}`} className='link'>
-            <img className='card-img-top movie-img' src={img_src} alt={title} />
+            <img
+              className='card-img-top movie-img'
+              src={img_src}
+              alt={title}
+              title={title}
+            />
           </Link>
+          {login && inList ? (
+            <div className='user-rating-main'>
+              <div className='user-rating'>
+                <Rating
+                  emptySymbol='fa fa-star-o fa-2x'
+                  fullSymbol='fa fa-star fa-2x'
+                  initialRating={this.state.initialRating}
+                  onClick={value =>
+                    this.setState(
+                      {
+                        initialRating: value
+                      },
+                      () => {
+                        this.updateRating(id, value);
+                      }
+                    )
+                  }
+                />
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
           <div className='text hover'>
             <span className='movie-card-title'>{title}</span>
           </div>
@@ -45,7 +135,8 @@ class Movie extends Component {
                   title,
                   img_src,
                   release_date,
-                  inList
+                  inList,
+                  this.state.initialRating
                 )
               }
               data-toggle='tooltip'
@@ -56,9 +147,9 @@ class Movie extends Component {
                 <i className='fa fa-check fa-2x' alt='TEST' />
               ) : (
                 <button
-                  className='addList-btn hover'
+                  className='addList-btn hover1'
                   data-toggle='modal'
-                  data-target='#rateModal'
+                  data-target={`#rateModal${id}`}
                 >
                   <i className='fa fa-plus fa-2x' />
                 </button>
@@ -69,88 +160,59 @@ class Movie extends Component {
           )}
         </div>
         <div
-          class='modal fade'
-          id='rateModal'
-          tabindex='-1'
+          className='modal fade'
+          id={`rateModal${id}`}
+          tabIndex='-1'
           role='dialog'
-          aria-labelledby='rateModal'
+          aria-labelledby={`rateModal${id}`}
           aria-hidden='true'
         >
-          <div class='modal-dialog modal-dialog-centered' role='document'>
-            <div class='modal-content'>
-              <div class='modal-header'>
-                <h5 class='modal-title' id='exampleModalLongTitle'>
+          <div className='modal-dialog modal-dialog-centered' role='document'>
+            <div className='modal-content'>
+              <div className='modal-header'>
+                <h5 className='modal-title' id='exampleModalLongTitle'>
                   How was it?
                 </h5>
                 <button
                   type='button'
-                  class='close'
+                  className='close'
                   data-dismiss='modal'
                   aria-label='Close'
                 >
                   <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
-              <div class='modal-body'>
-                <div class='rate-main'>
-                  {/* TODO: USE COLUMN REVERSE FOR HOVER EFFECT */}
+              <div className='modal-body'>
+                <div className='rate-main'>
                   <div className='rate'>
-                    <input type='radio' id='star5' name='rate' value='5' />
-                    <div className='for5Star'>Loved it</div>
-                    <label for='star5' title='5 stars'>
-                      5 stars
-                    </label>
-                    <input type='radio' id='star4' name='rate' value='4' />
-                    <div className='for4Star'>Liked it</div>
-                    <label for='star4' title='4 stars'>
-                      4 stars
-                    </label>
-                    <input type='radio' id='star3' name='rate' value='3' />
-                    <div className='for3Star'>Average</div>
-                    <label for='star3' title='3 stars'>
-                      3 stars
-                    </label>
-                    <input type='radio' id='star2' name='rate' value='2' />
-                    <div className='for2Star'>Poor</div>
-                    <label for='star2' title='2 stars'>
-                      2 stars
-                    </label>
-                    <input type='radio' id='star1' name='rate' value='1' />
-                    <div className='for1Star'>Horrible</div>
-                    <label for='star1' title='1 stars'>
-                      1 star
-                    </label>
+                    {/* TODO: ADD RESET RATING */}
+                    <div className='rating-title'>
+                      <span className='rating-title-span'>
+                        {this.state.ratingValue}
+                      </span>
+                    </div>
+                    <Rating
+                      emptySymbol='fa fa-star-o fa-2x'
+                      fullSymbol='fa fa-star fa-2x'
+                      initialRating={this.state.initialRating}
+                      onHover={value => this.onHoverRating(value)}
+                      onClick={value =>
+                        this.setState(
+                          {
+                            initialRating: value
+                          },
+                          () => {
+                            this.updateRating(id, value);
+                          }
+                        )
+                      }
+                    />
                   </div>
-                  {/* <div className='starLevel'>
-                  </div> */}
                 </div>
               </div>
-              {/* <div class='modal-footer'>
-                <button
-                  type='button'
-                  class='btn btn-secondary'
-                  data-dismiss='modal'
-                >
-                  Close
-                </button>
-                <button type='button' class='btn btn-primary'>
-                  Save changes
-                </button>
-              </div> */}
             </div>
           </div>
         </div>
-
-        {/* <div className='card-body'>
-          <Link to={`/movie/${id}`} className='a_card_title'>
-            <h5 className='card-title'>{title}</h5>
-          </Link>
-
-          <p className='card-text'>
-            <span>Release Date: </span>
-            {release_date}
-          </p>
-        </div> */}
       </div>
     );
   }
