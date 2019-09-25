@@ -15,7 +15,13 @@
   margin-top: 3vh;
 }
 
-.movie-container {
+.watchlist .card {
+  background-color: rgb(0, 0, 0);
+}
+
+.watchlist .image-container img {
+  opacity: 1;
+  border-radius: 0px;
 }
 
 .watchlist .movie {

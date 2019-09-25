@@ -26,9 +26,14 @@ class SearchUser extends Component {
         withCredentials: true
       })
       .then(res => {
-        this.setState({
-          users: res.data.data
-        });
+        this.setState(
+          {
+            users: res.data.data
+          },
+          () => {
+            console.log(this.state.users);
+          }
+        );
       });
   }
 

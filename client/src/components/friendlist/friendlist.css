@@ -1,8 +1,13 @@
 .friends-main {
   display: flex;
   flex-flow: wrap row;
+  justify-content: center;
 }
 
 .friend-title {
   margin-bottom: 1em;
+}
+
+.friends-main .users {
+  margin: 1.5em;
 }

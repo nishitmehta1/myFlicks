@@ -20,7 +20,7 @@ class LogIn extends Component {
   componentDidMount() {
     document.body.classList.toggle('redClass', true);
     axios.get('/users/', { withCredentials: true }).then(res => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       if (res.data.data === 'LOGGEDIN') {
         this.props.history.goBack();
       } else if (res.data.data === 'LOGIN') {
