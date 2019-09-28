@@ -4,6 +4,7 @@ import Search from './Search';
 import MovieMain from './MovieMain';
 import FinduserButton from './finduserbutton/FinduserButton';
 import axios from 'axios';
+import Slider from '../components/slider/Slider';
 
 const API_KEY = process.env.REACT_APP_API_KEY;
 class Main extends Component {
@@ -19,7 +20,8 @@ class Main extends Component {
       user: {},
       watchlist: [],
       notFound: false,
-      search: ''
+      search: '',
+      slider_img: []
     };
   }
 
@@ -44,11 +46,18 @@ class Main extends Component {
     )
       .then(response => response.json())
       .then(data =>
-        this.setState({
-          info: data.results,
-          trending: data.results,
-          search: ''
-        })
+        this.setState(
+          {
+            info: data.results,
+            trending: data.results,
+            search: ''
+          },
+          () => {
+            this.setState({
+              slider_img: this.state.info.slice(0, 6)
+            });
+          }
+        )
       );
   };
 
@@ -89,6 +98,13 @@ class Main extends Component {
     const { watchlist } = this.state;
     return (
       <div className='app'>
+        {this.state.info.length > 0 ? (
+          <div className='slider'>
+            <Slider slider_img={this.state.slider_img} />
+          </div>
+        ) : (
+          ''
+        )}
         <div className='search-bar-main container'>
           <div className='search-bar'>
             <Search login={this.props.login} change={this.handleChange} />

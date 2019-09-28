@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const session = require('express-session');
 const express = require('express');
 const app = express();
@@ -58,7 +58,7 @@ userRoutes.route('/login').post((req, res) => {
       res.json(err);
     }
     if (!user) {
-      console.log('Not Found');
+      console.log('Not Found', req.body.email);
       res.json({ data: 'NOTFOUND' });
     } else if (user && user.password === req.body.password) {
       console.log('PASS');

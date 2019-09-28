@@ -15,7 +15,6 @@ class Movie extends Component {
 
   componentDidMount() {
     if (this.props.inList) {
-      console.log('Check');
       const movie = {
         id: this.props.id
       };
